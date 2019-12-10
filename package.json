@@ -40,5 +40,8 @@
   },
   "devDependencies": {
     "redux-devtools-extension": "^2.13.8"
+  },
+  "resolutions": {
+    "**/**/handlebars": "^4.5.2"
   }
 }
