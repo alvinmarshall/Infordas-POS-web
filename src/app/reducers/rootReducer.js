@@ -21,6 +21,8 @@ import modalReducer from "../../components/modal/modalReducer";
 import { reducer as FormReducer } from "redux-form";
 import employeeReducer from "../../components/Content/Employee/reducers/employeeReducer";
 import rankReducer from "../../components/Content/set-up/Rank/reducers/rankReducer";
+import accountReducer from "../../components/Content/account/reducer/accountReducer";
+import productReducer from "../../components/Content/Product/reducer/productReducer";
 
 export default combineReducers({
   auth: authReducer,
@@ -30,5 +32,7 @@ export default combineReducers({
   modals: modalReducer,
   form: FormReducer,
   employee: employeeReducer,
-  ranks: rankReducer
+  rank: rankReducer,
+  account: accountReducer,
+  product: productReducer
 });
