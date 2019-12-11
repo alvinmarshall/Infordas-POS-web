@@ -1,8 +1,11 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { downloadUrl } from "../../../../app/common/constants/Constants";
+import { openModal } from "../../../modal/modalAction";
+import { ACCOUNT_MODAL } from "../../account/reducer/accountConstants";
+import { connect } from "react-redux";
 
-const CardProfile = ({ data }) => {
+const CardProfile = ({ data,openModal }) => {
   return (
     <div className="col-md-4">
       <div className="card card-primary card-outline">
@@ -24,24 +27,41 @@ const CardProfile = ({ data }) => {
           <p className="text-muted text-center">Status: {data.status}</p>
           <ul className="list-group list-group-unbordered mb-3">
             <li className="list-group-item">
-              <b>Contact</b> <span className="float-right">{data.contact}</span>
+              <b>Contact:</b> <span>{data.contact}</span>
             </li>
             <li className="list-group-item text-truncate">
-              <b>Email</b> <span className="float-right">{data.email}</span>
+              <b>Email:</b> <span>{data.email}</span>
             </li>
             <li className="list-group-item text-truncate">
-              <b>Address</b> <span className="">{data.address}</span>
+              <b>Address:</b> <span>{data.address}</span>
             </li>
             <li className="list-group-item text-truncate">
-              <b>Shift Hours</b> <span className="float-right">{data.hours}</span>
+              <b>Shift Hours:</b> <span>{data.hours}</span>
             </li>
           </ul>
-          <NavLink
-            to={{ pathname: "/add-employee", profile: data }}
-            className="btn btn-primary btn-block"
-          >
-            <b>View Profile</b>
-          </NavLink>
+          <div className="btn-group float-right">
+            <NavLink
+              to={{ pathname: "/add-employee", profile: data }}
+              className="btn btn-secondary btn-sm"
+            >
+              <b>View Profile</b>
+            </NavLink>
+            <button
+              onClick={() => openModal(ACCOUNT_MODAL, { data: data })}
+              className="btn btn-info btn-sm"
+            >
+              Set User Account
+            </button>
+            <NavLink
+              to={{ pathname: "/add-employee", profile: data }}
+              className="btn btn-danger btn-sm"
+            >
+              <b>
+                {data.status === "Active" ? "DeActivate" : "Activate"} User
+                Account
+              </b>
+            </NavLink>
+          </div>
         </div>
         {/* /.card-body */}
       </div>
@@ -49,4 +69,7 @@ const CardProfile = ({ data }) => {
   );
 };
 
-export default CardProfile;
+const action = {
+  openModal
+};
+export default connect(null, action)(CardProfile);

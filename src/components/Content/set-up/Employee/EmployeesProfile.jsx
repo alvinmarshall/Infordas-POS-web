@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { getEmployeesProfileAction } from "../../Employee/reducers/employeeAction";
 import CardProfile from "./CardProfile";
 import { Spinner } from "reactstrap";
+import { resetAccountMessageAction } from "../../account/reducer/accountAction";
 class EmployeesProfile extends Component {
   state = {
     profiles: []
@@ -18,6 +19,15 @@ class EmployeesProfile extends Component {
       this.setState({
         profiles: this.props.employee.profiles
       });
+    }
+    if (
+      this.props.account &&
+      this.props.account.message !== prevProps.account.message
+    ) {
+      if (this.props.account.message) {
+        alert(this.props.account.message);
+      }
+      this.props.resetAccountMessageAction();
     }
   }
 
@@ -60,9 +70,11 @@ EmployeesProfile.propTypes = {
 };
 
 const action = {
-  getEmployeesProfileAction
+  getEmployeesProfileAction,
+  resetAccountMessageAction
 };
 const mapState = state => ({
-  employee: state.employee
+  employee: state.employee,
+  account: state.account
 });
 export default connect(mapState, action)(EmployeesProfile);

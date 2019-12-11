@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import TestModal from "../../testcomponent/TestModal";
 import CompanyModal from "./company/CompanyModal";
 import RankModal from "./rank/RankModal";
+import AccountModal from "./account/AccountModal";
 const ModalManager = ({ currentModal }) => {
   let renderedModal;
   if (currentModal) {
@@ -16,7 +17,8 @@ const ModalManager = ({ currentModal }) => {
 const modalLookUps = {
   TestModal,
   CompanyModal,
-  RankModal
+  RankModal,
+  AccountModal
 };
 
 const mapState = state => ({
