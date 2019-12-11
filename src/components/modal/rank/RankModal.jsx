@@ -12,7 +12,7 @@ const RankModal = ({ closeModel, data }) => {
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle}>Rank Detail</ModalHeader>
         <ModalBody>
-          <RankForm toggle={toggle} />
+          <RankForm toggle={toggle} currentRank={data}/>
         </ModalBody>
       </Modal>
     </div>
