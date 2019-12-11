@@ -111,7 +111,7 @@ const Sidebar = ({ user }) => {
 
               <li className="nav-item has-treeview">
                 <a href="fake_url" className="nav-link">
-                  <i className="nav-icon fas fa-users" />
+                  <i className="nav-icon fas fa-user-tie" />
                   <p>
                     Employee
                     <i className="fas fa-angle-left right" />
@@ -135,7 +135,7 @@ const Sidebar = ({ user }) => {
 
               <li className="nav-item has-treeview">
                 <a href="fake_url" className="nav-link">
-                  <i className="nav-icon fas fa-users" />
+                  <i className="nav-icon fas fa-cart-plus" />
                   <p>
                     Sales
                     <i className="fas fa-angle-left right" />
@@ -152,6 +152,37 @@ const Sidebar = ({ user }) => {
                     <a href="../forms/editors.html" className="nav-link">
                       <i className="far fa-circle nav-icon" />
                       <p>Editors</p>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+
+              <li className="nav-item has-treeview">
+                <a href="fake_url" className="nav-link">
+                  <i className="nav-icon fas fa-shopping-bag" />
+                  <p>
+                    Products
+                    <i className="fas fa-angle-left right" />
+                  </p>
+                </a>
+                <ul className="nav nav-treeview">
+                  <li className="nav-item">
+                    <NavLink to="/product" className="nav-link">
+                      <i className="far fa-circle nav-icon" />
+                      <p>Product</p>
+                    </NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <a href="#fk" className="nav-link">
+                      <i className="far fa-circle nav-icon" />
+                      <p>Brand</p>
+                    </a>
+                  </li>
+
+                  <li className="nav-item">
+                    <a href="#f" className="nav-link">
+                      <i className="far fa-circle nav-icon" />
+                      <p>Category</p>
                     </a>
                   </li>
                 </ul>
