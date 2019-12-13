@@ -6,6 +6,7 @@ import Rank from "./set-up/Rank/Rank";
 import PrivateRoute from "../Auth/route/PrivateRoute";
 import NewEmployee from "./set-up/Employee/NewEmployee";
 import EmployeesProfile from "./set-up/Employee/EmployeesProfile";
+import Product from "./Product/Product";
 
 export default class Content extends Component {
   render() {
@@ -17,6 +18,7 @@ export default class Content extends Component {
           <PrivateRoute path="/rank" exact component={Rank} />
           <PrivateRoute path="/add-employee" exact component={NewEmployee} />
           <PrivateRoute path="/profiles" exact component={EmployeesProfile} />
+          <PrivateRoute path="/product" exact component={Product} />
         </Switch>
       </section>
     );

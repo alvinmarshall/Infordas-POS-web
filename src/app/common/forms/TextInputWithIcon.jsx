@@ -7,7 +7,8 @@ const TextInputWithIcon = ({
   width,
   meta: { touched, error },
   icon,
-  pattern
+  pattern,
+  readOnly
 }) => {
   return (
     <div>
@@ -20,6 +21,7 @@ const TextInputWithIcon = ({
         <input
           {...input}
           type={type}
+          readOnly={readOnly}
           pattern={pattern}
           className="form-control"
           placeholder={placeholder}
