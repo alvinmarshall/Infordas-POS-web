@@ -27,6 +27,8 @@ const ProductTable = ({ products, openModal, handleDeleteProduct }) => {
             <th>Retail Price</th>
             <th>InStock</th>
             <th>Unit</th>
+            <th>Category</th>
+            <th>Brand</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -39,6 +41,8 @@ const ProductTable = ({ products, openModal, handleDeleteProduct }) => {
                 <td>{data.retailPrice}</td>
                 <td>{data.stock}</td>
                 <td>{data.unit}</td>
+                <td>{data.category}</td>
+                <td>{data.brand}</td>
                 <td>
                   <div className="btn-group">
                     <button

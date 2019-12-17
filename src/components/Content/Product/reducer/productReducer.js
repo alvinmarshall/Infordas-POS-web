@@ -21,12 +21,24 @@ import {
   DELETE_PRODUCT,
   PRODUCT_LOADING
 } from "./productConstants";
+import {
+  CREATE_PRODUCT_CATEGORY,
+  GET_ALL_PRODUCT_CATEGORY,
+  UPDATE_PRODUCT_CATEGORY,
+  REMOVE_PRODUCT_CATEGORY,
+  PRODUCT_CATEGORY_LOADING
+} from "./categoryConstansts";
 
 const initialState = {
   products: [],
   message: "",
-  loading: false
+  loading: false,
+  categories: []
 };
+
+//
+// ─── PRODUCT ────────────────────────────────────────────────────────────────────
+//
 
 export const createProduct = (state, payload) => {
   return { ...state, message: payload, loading: false };
@@ -52,11 +64,35 @@ export const isLoading = (state, payload) => {
   return { ...state, loading: payload };
 };
 
+//
+// ─── CATEGORY ───────────────────────────────────────────────────────────────────
+//
+
+export const createCategory = (state, payload) => {
+  return { ...state, message: payload, loading: false };
+};
+
+export const getAllCategories = (state, payload) => {
+  return { ...state, categories: payload, loading: false };
+};
+export const updateCategory = (state, payload) => {
+  return { ...state, message: payload, loading: false };
+};
+
+export const removeCategory = (state, payload) => {
+  return { ...state, message: payload, loading: false };
+};
+
 export default createReducer(initialState, {
   [CREATE_PRODUCT]: createProduct,
   [GET_ALL_PRODUCT]: getAllProducts,
   [RESET_PRODUCT_MESSAGE]: resetProductMessage,
   [UPDATE_PRODUCT]: updateProduct,
   [DELETE_PRODUCT]: deleteProduct,
-  [PRODUCT_LOADING]: isLoading
+  [PRODUCT_LOADING]: isLoading,
+  [CREATE_PRODUCT_CATEGORY]: createCategory,
+  [GET_ALL_PRODUCT_CATEGORY]: getAllCategories,
+  [UPDATE_PRODUCT_CATEGORY]: updateCategory,
+  [REMOVE_PRODUCT_CATEGORY]: removeCategory,
+  [PRODUCT_CATEGORY_LOADING]: isLoading
 });

@@ -21,8 +21,8 @@ import {
   DELETE_PRODUCT,
   UPDATE_PRODUCT
 } from "./productConstants";
-import { logoutUser } from "../../../Auth/reducers/authAction";
-import { GET_ERRORS } from "../../../error/reducer/errorConstants";
+import { errorHandlingAction } from "../../../error/reducer/errorAction";
+
 const options = {
   headers: { Authorization: `Bearer ${localStorage.auth_token}` }
 };
@@ -39,11 +39,7 @@ export const createProductAction = payload => dispatch => {
     })
     .catch(err => {
       showLoading(false, dispatch);
-      const { status } = err.response;
-      if (status === 401) {
-        return dispatch(logoutUser());
-      }
-      dispatch({ type: GET_ERRORS, payload: err });
+      errorHandlingAction(err, dispatch);
     });
 };
 //
@@ -59,11 +55,7 @@ export const fetchAllProductAction = () => dispatch => {
     })
     .catch(err => {
       showLoading(false, dispatch);
-      const { status } = err.response;
-      if (status === 401) {
-        return dispatch(logoutUser());
-      }
-      dispatch({ type: GET_ERRORS, payload: err });
+      errorHandlingAction(err, dispatch);
     });
 };
 
@@ -80,11 +72,7 @@ export const updateProductAction = payload => dispatch => {
     })
     .catch(err => {
       showLoading(false, dispatch);
-      const { status } = err.response;
-      if (status === 401) {
-        return dispatch(logoutUser());
-      }
-      dispatch({ type: GET_ERRORS, payload: err });
+      errorHandlingAction(err, dispatch);
     });
 };
 
@@ -95,17 +83,14 @@ export const updateProductAction = payload => dispatch => {
 export const deleteProductAction = payload => dispatch => {
   showLoading(true, dispatch);
   axios
-    .delete(`/product/product/${payload}`, payload, options)
+    .delete(`/product/product/${payload}`,  options)
     .then(res => {
       dispatch({ type: DELETE_PRODUCT, payload: res.data.data.message });
     })
     .catch(err => {
+      console.log("rem", err);
       showLoading(false, dispatch);
-      const { status } = err.response;
-      if (status === 401) {
-        return dispatch(logoutUser());
-      }
-      dispatch({ type: GET_ERRORS, payload: err });
+      errorHandlingAction(err, dispatch);
     });
 };
 

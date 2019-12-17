@@ -5,6 +5,7 @@ import CompanyModal from "./company/CompanyModal";
 import RankModal from "./rank/RankModal";
 import AccountModal from "./account/AccountModal";
 import ProductModal from "./product/ProductModal";
+import ProductCategoryModal from "./product/ProductCategoryModal";
 const ModalManager = ({ currentModal }) => {
   let renderedModal;
   if (currentModal) {
@@ -20,7 +21,8 @@ const modalLookUps = {
   CompanyModal,
   RankModal,
   AccountModal,
-  ProductModal
+  ProductModal,
+  ProductCategoryModal
 };
 
 const mapState = state => ({

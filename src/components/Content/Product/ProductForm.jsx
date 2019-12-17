@@ -23,17 +23,53 @@ import {
   updateProductAction
 } from "./reducer/productAction";
 import PropTypes from "prop-types";
+import { combineValidators, isRequired } from "revalidate";
+import { fetchAllCategoryAction } from "./reducer/categoryAction";
+
+const validate = combineValidators({
+  name: isRequired({ message: "name of product is required" }),
+  buyPrice: isRequired({ message: "this price is required" }),
+  retailPrice: isRequired({ message: "this price is required" }),
+  stock: isRequired({ message: "stock quantity is required" })
+});
+
 class ProductForm extends Component {
+  state = {
+    categories: []
+  };
+  componentDidMount() {
+    this.props.fetchAllCategoryAction();
+  }
+  componentDidUpdate(prevProps) {
+    if (this.props.product.categories !== prevProps.product.categories) {
+      this.setState({ categories: this.props.product.categories });
+    }
+  }
   onSubmitForm = payload => {
     this.props.toggle();
     if (payload.uuid) {
+      const cancel = window.confirm(
+        `Do you want to save changes made to ${payload.name} ?`
+      );
+      if (!cancel) return;
       this.props.updateProductAction(payload);
       return;
     }
+    const selectedCategory = this.state.categories.find(c => c.name === payload.category);
+    payload.category = selectedCategory === null ? 0 : selectedCategory.id;
     this.props.createProductAction(payload);
   };
   render() {
     const { toggle, handleSubmit, submitting, pristine } = this.props;
+    const { categories } = this.state;
+    const categoryOptions = [{ key: -1, value: "" }];
+    {
+      categories &&
+        categories.map((category, index) => {
+          categoryOptions.push({ key: index, value: category.name });
+        });
+    }
+
     return (
       <div>
         <Form
@@ -65,7 +101,11 @@ class ProductForm extends Component {
               <FormGroup className="row">
                 <label className="col-sm-2 col-form-label">Category</label>
                 <div className="col-sm-10">
-                  <Field name="category" component={SelectInput} />
+                  <Field
+                    name="category"
+                    options={categoryOptions}
+                    component={SelectInput}
+                  />
                 </div>
               </FormGroup>
 
@@ -181,7 +221,8 @@ ProductForm.propTypes = {
 };
 const mapDispatchToProps = {
   createProductAction,
-  updateProductAction
+  updateProductAction,
+  fetchAllCategoryAction
 };
 
 const mapStateToProps = (state, ownProps) => ({
@@ -192,4 +233,8 @@ const mapStateToProps = (state, ownProps) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(reduxForm({ form: "productForm", enableReinitialize: true })(ProductForm));
+)(
+  reduxForm({ form: "productForm", enableReinitialize: true, validate })(
+    ProductForm
+  )
+);

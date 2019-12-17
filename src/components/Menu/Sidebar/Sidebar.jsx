@@ -167,12 +167,6 @@ const Sidebar = ({ user }) => {
                 </a>
                 <ul className="nav nav-treeview">
                   <li className="nav-item">
-                    <NavLink to="/product" className="nav-link">
-                      <i className="far fa-circle nav-icon" />
-                      <p>Product</p>
-                    </NavLink>
-                  </li>
-                  <li className="nav-item">
                     <a href="#fk" className="nav-link">
                       <i className="far fa-circle nav-icon" />
                       <p>Brand</p>
@@ -180,14 +174,19 @@ const Sidebar = ({ user }) => {
                   </li>
 
                   <li className="nav-item">
-                    <a href="#f" className="nav-link">
+                    <NavLink to="/product-category" className="nav-link">
                       <i className="far fa-circle nav-icon" />
                       <p>Category</p>
-                    </a>
+                    </NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <NavLink to="/product" className="nav-link">
+                      <i className="far fa-circle nav-icon" />
+                      <p>Product</p>
+                    </NavLink>
                   </li>
                 </ul>
               </li>
-
             </ul>
           </nav>
           {/* /.sidebar-menu */}
