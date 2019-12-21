@@ -28,71 +28,101 @@ import {
   REMOVE_PRODUCT_CATEGORY,
   PRODUCT_CATEGORY_LOADING
 } from "./categoryConstansts";
+import {
+  CREATE_PRODUCT_BRAND,
+  GET_ALL_PRODUCT_BRAND,
+  UPDATE_PRODUCT_BRAND,
+  REMOVE_PRODUCT_BRAND,
+  PRODUCT_BRAND_LOADING
+} from "./brandConstants";
 
 const initialState = {
   products: [],
   message: "",
   loading: false,
-  categories: []
+  categories: [],
+  brands: [],
+  pageNext: {},
+  pagePrev: {}
 };
 
-//
-// ─── PRODUCT ────────────────────────────────────────────────────────────────────
-//
-
-export const createProduct = (state, payload) => {
+export const create = (state, payload) => {
+  return { ...state, message: payload, loading: false };
+};
+export const update = (state, payload) => {
   return { ...state, message: payload, loading: false };
 };
 
-export const resetProductMessage = (state, payload) => {
-  return { ...state, message: "" };
-};
-
-export const getAllProducts = (state, payload) => {
-  return { ...state, products: payload, loading: false };
-};
-
-export const updateProduct = (state, payload) => {
-  return { ...state, message: payload, loading: false };
-};
-
-export const deleteProduct = (state, payload) => {
+export const remove = (state, payload) => {
   return { ...state, message: payload, loading: false };
 };
 
 export const isLoading = (state, payload) => {
   return { ...state, loading: payload };
 };
+export const resetProductMessage = (state, payload) => {
+  return { ...state, message: payload || "" };
+};
+
+//
+// ─── PRODUCT ────────────────────────────────────────────────────────────────────
+//
+
+export const getAllProducts = (state, payload) => {
+  return {
+    ...state,
+    products: payload.data,
+    pagePrev: payload.prev,
+    pageNext: payload.next,
+    loading: false
+  };
+};
 
 //
 // ─── CATEGORY ───────────────────────────────────────────────────────────────────
 //
 
-export const createCategory = (state, payload) => {
-  return { ...state, message: payload, loading: false };
-};
-
 export const getAllCategories = (state, payload) => {
   return { ...state, categories: payload, loading: false };
 };
-export const updateCategory = (state, payload) => {
-  return { ...state, message: payload, loading: false };
-};
 
-export const removeCategory = (state, payload) => {
-  return { ...state, message: payload, loading: false };
+//
+// ─── BRAND ──────────────────────────────────────────────────────────────────────
+//
+
+export const getAllBrands = (state, payload) => {
+  return { ...state, brands: payload, loading: false };
 };
 
 export default createReducer(initialState, {
-  [CREATE_PRODUCT]: createProduct,
-  [GET_ALL_PRODUCT]: getAllProducts,
   [RESET_PRODUCT_MESSAGE]: resetProductMessage,
-  [UPDATE_PRODUCT]: updateProduct,
-  [DELETE_PRODUCT]: deleteProduct,
+
+  //
+  // ─── PRODUCT ────────────────────────────────────────────────────────────────────
+  //
+
+  [CREATE_PRODUCT]: create,
+  [GET_ALL_PRODUCT]: getAllProducts,
+  [UPDATE_PRODUCT]: update,
+  [DELETE_PRODUCT]: remove,
   [PRODUCT_LOADING]: isLoading,
-  [CREATE_PRODUCT_CATEGORY]: createCategory,
+  //
+  // ─── CATEGORY ───────────────────────────────────────────────────────────────────
+  //
+
+  [CREATE_PRODUCT_CATEGORY]: create,
   [GET_ALL_PRODUCT_CATEGORY]: getAllCategories,
-  [UPDATE_PRODUCT_CATEGORY]: updateCategory,
-  [REMOVE_PRODUCT_CATEGORY]: removeCategory,
-  [PRODUCT_CATEGORY_LOADING]: isLoading
+  [UPDATE_PRODUCT_CATEGORY]: update,
+  [REMOVE_PRODUCT_CATEGORY]: remove,
+  [PRODUCT_CATEGORY_LOADING]: isLoading,
+
+  //
+  // ─── BRAND ──────────────────────────────────────────────────────────────────────
+  //
+
+  [CREATE_PRODUCT_BRAND]: create,
+  [GET_ALL_PRODUCT_BRAND]: getAllBrands,
+  [UPDATE_PRODUCT_BRAND]: update,
+  [REMOVE_PRODUCT_BRAND]: remove,
+  [PRODUCT_BRAND_LOADING]: isLoading
 });

@@ -20,7 +20,8 @@ import { PRODUCT_MODAL } from "./reducer/productConstants";
 import {
   fetchAllProductAction,
   resetProductMessageAction,
-  deleteProductAction
+  deleteProductAction,
+  fetchSelectionInput
 } from "./reducer/productAction";
 import SpinnerView from "../../spinner/SpinnerView";
 import PropTypes from "prop-types";
@@ -57,11 +58,20 @@ class Product extends Component {
     this.props.deleteProductAction(payload.uuid);
   };
 
+  handlePageNext = (start, end) => () => {
+    this.props.fetchAllProductAction(start, end);
+  };
+
+  handlePagePrev = (start, end) => () => {
+    this.props.fetchAllProductAction(start, end);
+  };
+
   render() {
     const { openModal } = this.props;
     const { products } = this.state;
-    const { loading } = this.props.product;
+    const { loading, pageNext, pagePrev } = this.props.product;
     let productContent;
+    let paginate;
     if (loading) {
       productContent = <SpinnerView />;
     } else {
@@ -101,7 +111,39 @@ class Product extends Component {
               {productContent}
 
               {/* /.card-body */}
+              <div className="card-footer clearfix">
+                <ul className="pagination pagination-md float-right">
+                  <li className="page-item">
+                    {pagePrev && pagePrev.page && (
+                      <button
+                        className="page-link"
+                        onClick={this.handlePagePrev(
+                          pagePrev.page,
+                          pagePrev.limit
+                        )}
+                      >
+                        Prevous
+                      </button>
+                    )}
+                  </li>
+
+                  {pageNext && pageNext.page && (
+                    <li className="page-item">
+                      <button
+                        className="page-link"
+                        onClick={this.handlePageNext(
+                          pageNext.page,
+                          pageNext.limit
+                        )}
+                      >
+                        Next
+                      </button>
+                    </li>
+                  )}
+                </ul>
+              </div>
             </div>
+
             {/* /.card */}
           </div>
         </div>
@@ -121,7 +163,7 @@ const mapDispatchToProps = {
   openModal,
   fetchAllProductAction,
   resetProductMessageAction,
-  deleteProductAction
+  deleteProductAction,
 };
 const mapStateToProps = state => ({
   product: state.product

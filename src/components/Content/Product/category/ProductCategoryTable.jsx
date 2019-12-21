@@ -6,7 +6,7 @@ const ProductCategoryTable = ({ categories, openModal }) => {
     <table className="table table-striped">
       <thead>
         <tr>
-          <th >#</th>
+          <th>#</th>
           <th>Name</th>
           <th>Description</th>
           <th>Assigned Products</th>
@@ -29,12 +29,14 @@ const ProductCategoryTable = ({ categories, openModal }) => {
                 <div className="progress progress-xs">
                   <div
                     className="progress-bar progress-bar-danger"
-                    style={{ width: `${category.count || 0}%` }}
+                    style={{ width: `${(category.count/2) || 0}%` }}
                   />
                 </div>
               </td>
               <td>
-                <span className="badge bg-danger">{category.count || 0}%</span>
+                <span className="badge bg-danger">
+                  {category.count / 10 || 0}%
+                </span>
               </td>
             </tr>
           ))}

@@ -13,18 +13,19 @@
 // limitations under the License.
 
 import React, { Component } from "react";
-import { Form, FormGroup, ModalFooter, Card, CardBody } from "reactstrap";
+import { Form, FormGroup, ModalFooter } from "reactstrap";
 import { reduxForm, Field } from "redux-form";
 import TextInputWithIcon from "../../../app/common/forms/TextInputWithIcon";
 import { connect } from "react-redux";
 import SelectInput from "../../../app/common/forms/SelectInput";
 import {
   createProductAction,
-  updateProductAction
+  updateProductAction,
+  fetchSelectionInput
 } from "./reducer/productAction";
 import PropTypes from "prop-types";
 import { combineValidators, isRequired } from "revalidate";
-import { fetchAllCategoryAction } from "./reducer/categoryAction";
+import SpinnerView from "../../spinner/SpinnerView";
 
 const validate = combineValidators({
   name: isRequired({ message: "name of product is required" }),
@@ -34,19 +35,21 @@ const validate = combineValidators({
 });
 
 class ProductForm extends Component {
-  state = {
-    categories: []
-  };
   componentDidMount() {
-    this.props.fetchAllCategoryAction();
+    this.props.fetchSelectionInput();
   }
-  componentDidUpdate(prevProps) {
-    if (this.props.product.categories !== prevProps.product.categories) {
-      this.setState({ categories: this.props.product.categories });
-    }
-  }
+
   onSubmitForm = payload => {
     this.props.toggle();
+    const selectedCategory = this.props.product.categories.find(
+      c => c.name === payload.category
+    );
+    const selectedBrand = this.props.product.brands.find(
+      b => b.name === payload.brand
+    );
+    payload.category = selectedCategory === undefined ? 0 : selectedCategory.id;
+    payload.brand = selectedBrand === undefined ? 0 : selectedBrand.id;
+
     if (payload.uuid) {
       const cancel = window.confirm(
         `Do you want to save changes made to ${payload.name} ?`
@@ -55,14 +58,24 @@ class ProductForm extends Component {
       this.props.updateProductAction(payload);
       return;
     }
-    const selectedCategory = this.state.categories.find(c => c.name === payload.category);
-    payload.category = selectedCategory === null ? 0 : selectedCategory.id;
+
     this.props.createProductAction(payload);
   };
+
   render() {
-    const { toggle, handleSubmit, submitting, pristine } = this.props;
-    const { categories } = this.state;
     const categoryOptions = [{ key: -1, value: "" }];
+    const brandOptions = [{ key: -1, value: "" }];
+    const { toggle, handleSubmit, submitting, pristine } = this.props;
+    const { loading } = this.props.product;
+    const { categories, brands } = this.props.product;
+
+    {
+      brands &&
+        brands.map((brand, index) => {
+          brandOptions.push({ key: index, value: brand.name });
+        });
+    }
+
     {
       categories &&
         categories.map((category, index) => {
@@ -72,6 +85,7 @@ class ProductForm extends Component {
 
     return (
       <div>
+        {loading && <SpinnerView />}
         <Form
           onSubmit={handleSubmit(this.onSubmitForm)}
           className="form-horizontal"
@@ -94,7 +108,11 @@ class ProductForm extends Component {
               <FormGroup className="row">
                 <label className="col-sm-2 col-form-label">Brand</label>
                 <div className="col-sm-10">
-                  <Field name="brand" component={SelectInput} />
+                  <Field
+                    name="brand"
+                    options={brandOptions}
+                    component={SelectInput}
+                  />
                 </div>
               </FormGroup>
 
@@ -217,12 +235,13 @@ class ProductForm extends Component {
 
 ProductForm.propTypes = {
   createProductAction: PropTypes.func.isRequired,
-  updateProductAction: PropTypes.func
+  updateProductAction: PropTypes.func,
+  fetchSelectionInput: PropTypes.func
 };
 const mapDispatchToProps = {
   createProductAction,
   updateProductAction,
-  fetchAllCategoryAction
+  fetchSelectionInput
 };
 
 const mapStateToProps = (state, ownProps) => ({

@@ -18,8 +18,8 @@ import { connect } from "react-redux";
 import { PRODUCT_MODAL } from "./reducer/productConstants";
 const ProductTable = ({ products, openModal, handleDeleteProduct }) => {
   return (
-    <div className="card-body table-responsive p-0">
-      <table className="table table-bordered table-hover">
+    <div className="card-body table-responsive p-0" >
+      <table className="table table-bordered table-striped table-hover">
         <thead>
           <tr>
             <th>Name</th>
@@ -64,6 +64,7 @@ const ProductTable = ({ products, openModal, handleDeleteProduct }) => {
         </tbody>
       </table>
     </div>
+    
   );
 };
 

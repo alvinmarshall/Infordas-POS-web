@@ -22,6 +22,8 @@ import {
   UPDATE_PRODUCT
 } from "./productConstants";
 import { errorHandlingAction } from "../../../error/reducer/errorAction";
+import { GET_ALL_PRODUCT_BRAND } from "./brandConstants";
+import { GET_ALL_PRODUCT_CATEGORY } from "./categoryConstansts";
 
 const options = {
   headers: { Authorization: `Bearer ${localStorage.auth_token}` }
@@ -46,12 +48,12 @@ export const createProductAction = payload => dispatch => {
 // ─── GET ALL PRODUCT ────────────────────────────────────────────────────────────
 //
 
-export const fetchAllProductAction = () => dispatch => {
+export const fetchAllProductAction = (start, end) => dispatch => {
   showLoading(true, dispatch);
   axios
-    .get("/product/products", options)
+    .get(`/product/products?page=${start || 1}&limit=${end || 5}`, options)
     .then(res => {
-      dispatch({ type: GET_ALL_PRODUCT, payload: res.data.data });
+      dispatch({ type: GET_ALL_PRODUCT, payload: res.data.result });
     })
     .catch(err => {
       showLoading(false, dispatch);
@@ -83,7 +85,7 @@ export const updateProductAction = payload => dispatch => {
 export const deleteProductAction = payload => dispatch => {
   showLoading(true, dispatch);
   axios
-    .delete(`/product/product/${payload}`,  options)
+    .delete(`/product/product/${payload}`, options)
     .then(res => {
       dispatch({ type: DELETE_PRODUCT, payload: res.data.data.message });
     })
@@ -104,4 +106,20 @@ export const resetProductMessageAction = () => dispatch => {
 
 const showLoading = (show, dispatch) => {
   dispatch({ type: PRODUCT_LOADING, payload: show });
+};
+
+export const fetchSelectionInput = () => dispatch => {
+  showLoading(true, dispatch);
+  Promise.all([
+    axios.get("/product/brands", options),
+    axios.get("/product/categories", options)
+  ])
+    .then(([brand, category]) => {
+      dispatch({ type: GET_ALL_PRODUCT_BRAND, payload: brand.data.data });
+      dispatch({ type: GET_ALL_PRODUCT_CATEGORY, payload: category.data.data });
+    })
+    .catch(err => {
+      showLoading(false, dispatch);
+      errorHandlingAction(err, dispatch);
+    });
 };
