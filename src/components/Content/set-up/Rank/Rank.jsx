@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import RankTable from "./RankTable";
 import { getRanksAction, resetRankMessageAction } from "./reducers/rankAction";
 import SpinnerView from "../../../spinner/SpinnerView";
+import { ALERT_MODAL } from "../../../../app/common/constants/Constants";
 
 class Rank extends Component {
   state = {
@@ -19,9 +20,11 @@ class Rank extends Component {
       this.setState({ ranks: this.props.rank.ranks });
     }
 
-    if (this.props.rank && this.props.rank.message !== prevProps.rank.message) {
+    if (this.props.rank.message !== prevProps.rank.message) {
       if (this.props.rank.message) {
-        alert(this.props.rank.message);
+        this.props.openModal(ALERT_MODAL, {
+          data: { message: this.props.rank.message }
+        });
       }
       this.props.getRanksAction();
       this.props.resetRankMessageAction();

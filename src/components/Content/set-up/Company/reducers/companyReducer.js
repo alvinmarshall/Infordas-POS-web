@@ -19,7 +19,7 @@ const initialState = {
 //
 
 export const getAllCompanies = (state, payload) => {
-  return { ...state, companies: payload,loading:false };
+  return { ...state, companies: payload, loading: false };
 };
 
 //
@@ -27,7 +27,7 @@ export const getAllCompanies = (state, payload) => {
 //
 
 export const isLoading = (state, payload) => {
-  return { ...state, loading: true };
+  return { ...state, loading: payload };
 };
 
 //
@@ -35,7 +35,7 @@ export const isLoading = (state, payload) => {
 //
 
 export const createCompany = (state, payload) => {
-  return { ...state, message: payload };
+  return { ...state, message: payload, loading: false };
 };
 
 //
@@ -51,11 +51,11 @@ export const removeCompany = (state, payload) => {
 //
 
 export const updateCompany = (state, payload) => {
-  return { ...state, message: payload };
+  return { ...state, message: payload, loading: false };
 };
 
 export const resetCompanyMessage = (state, payload) => {
-  return { ...state, message: payload };
+  return { ...state, message: payload || "" };
 };
 
 export default createReducer(initialState, {

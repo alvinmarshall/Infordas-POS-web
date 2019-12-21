@@ -10,17 +10,7 @@ import {
   updateCompany,
   resetCompMessage
 } from "./reducers/companyAction";
-
-const mapState = (state, ownProps) => {
-  const data = ownProps.companyData;
-  if (data) {
-    return { initialValues: data };
-  }
-  return {
-    company: state.company,
-    message: state.company.message
-  };
-};
+import PropTypes from "prop-types";
 
 const validate = combineValidators({
   name: isRequired({ message: "company name is required" }),
@@ -30,23 +20,14 @@ const validate = combineValidators({
 });
 
 class CompanyForm extends Component {
-  componentDidUpdate(prevProps) {
-    if (
-      this.props.company &&
-      this.props.company.message !== prevProps.company.message
-    ) {
-      this.props.toggle();
-      this.props.resetCompMessage();
-    }
-  }
-
   onFormSubmit = payload => {
+    this.props.toggle();
     if (payload && payload.id) {
       this.props.updateCompany(payload);
       this.props.toggle();
-    } else {
-      this.props.createNewCompany(payload);
+      return;
     }
+    this.props.createNewCompany(payload);
   };
 
   render() {
@@ -123,16 +104,28 @@ class CompanyForm extends Component {
   }
 }
 
-const action = {
+CompanyForm.propTypes = {
+  createNewCompany: PropTypes.func.isRequired,
+  fetchAllCompanies: PropTypes.func.isRequired,
+  updateCompany: PropTypes.func,
+  resetCompMessage: PropTypes.func
+};
+
+const mapDispatchToProps = {
   createNewCompany,
   fetchAllCompanies,
   updateCompany,
   resetCompMessage
 };
 
+const mapStateToProps = (state, ownProps) => ({
+  initialValues: ownProps.companyData,
+  company: state.company
+});
+
 export default connect(
-  mapState,
-  action
+  mapStateToProps,
+  mapDispatchToProps
 )(
   reduxForm({ form: "companyForm", enableReinitialize: true, validate })(
     CompanyForm

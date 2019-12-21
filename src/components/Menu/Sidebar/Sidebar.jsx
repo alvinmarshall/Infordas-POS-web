@@ -15,7 +15,9 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import PropType from "prop-types";
-const Sidebar = ({ user }) => {
+import { connect } from "react-redux";
+import { logoutUser } from "../../Auth/reducers/authAction";
+const Sidebar = ({ user, logoutUser }) => {
   return (
     <div>
       <aside className="main-sidebar sidebar-dark-primary elevation-4">
@@ -163,7 +165,7 @@ const Sidebar = ({ user }) => {
                     </a>
                   </li>
                   <li className="nav-item">
-                    <a href="../forms/editors.html" className="nav-link">
+                    <a href="#d" className="nav-link">
                       <i className="far fa-circle nav-icon" />
                       <p>Editors</p>
                     </a>
@@ -175,7 +177,7 @@ const Sidebar = ({ user }) => {
                 <a href="fake_url" className="nav-link">
                   <i className="nav-icon fas fa-shopping-bag" />
                   <p>
-                    Products
+                    Inventory
                     <i className="fas fa-angle-left right" />
                   </p>
                 </a>
@@ -199,6 +201,36 @@ const Sidebar = ({ user }) => {
                       <p>Product</p>
                     </NavLink>
                   </li>
+                  <li className="nav-item">
+                    <NavLink to="/purchase" className="nav-link">
+                      <i className="far fa-circle nav-icon" />
+                      <p>Purchase</p>
+                    </NavLink>
+                  </li>
+                </ul>
+              </li>
+
+              <li className="nav-item has-treeview">
+                <a href="fake_url" className="nav-link">
+                  <i className="nav-icon fas fa-cog" />
+                  <p>
+                    Settings
+                    <i className="fas fa-angle-left right" />
+                  </p>
+                </a>
+                <ul className="nav nav-treeview">
+                  <li className="nav-item">
+                    <a href="../forms/advanced.html" className="nav-link">
+                      <i className="far fa-circle nav-icon" />
+                      <p>Profile</p>
+                    </a>
+                  </li>
+                  <li className="nav-item">
+                    <a onClick={() => logoutUser()} className="nav-link">
+                      <i className="far fa-circle nav-icon" />
+                      <p>Logout</p>
+                    </a>
+                  </li>
                 </ul>
               </li>
             </ul>
@@ -211,6 +243,10 @@ const Sidebar = ({ user }) => {
   );
 };
 Sidebar.propType = {
-  username: PropType.string.isRequired
+  username: PropType.string.isRequired,
+  logoutUser: PropType.func
 };
-export default Sidebar;
+const mapDispatchToProps = {
+  logoutUser
+};
+export default connect(null, mapDispatchToProps)(Sidebar);

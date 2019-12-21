@@ -11,6 +11,7 @@ import { openModal } from "../../../modal/modalAction";
 import { COMPANY_MODAL } from "./reducers/companyConstants";
 import CompanyTable from "./CompanyTable";
 import { Spinner } from "reactstrap";
+import { ALERT_MODAL } from "../../../../app/common/constants/Constants";
 class Company extends Component {
   state = {
     company: []
@@ -25,12 +26,11 @@ class Company extends Component {
       this.setState({ company: this.props.company.companies });
     }
 
-    if (
-      this.props.company &&
-      this.props.company.message !== prevProps.company.message
-    ) {
+    if (this.props.company.message !== prevProps.company.message) {
       if (this.props.company.message) {
-        alert(this.props.company.message);
+        this.props.openModal(ALERT_MODAL, {
+          data: { message: this.props.company.message }
+        });
       }
       this.props.fetchAllCompanies();
       this.props.resetCompMessage();
@@ -51,7 +51,7 @@ class Company extends Component {
     const { openModal } = this.props;
     const { loading } = this.props.company;
     let tableContent;
-    if (company.length === 0 || loading) {
+    if (loading) {
       tableContent = (
         <Spinner
           color="dark"

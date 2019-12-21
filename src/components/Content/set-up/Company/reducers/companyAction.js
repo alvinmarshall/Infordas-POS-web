@@ -1,5 +1,4 @@
 import axios from "axios";
-import { GET_ERRORS } from "../../../../error/reducer/errorConstants";
 import {
   GET_ALL_COMPANIES,
   COMPANY_IS_LOADING,
@@ -8,7 +7,11 @@ import {
   UPDATE_COMPANY,
   RESET_COMPANY_MESSAGE
 } from "./companyConstants";
-import { logoutUser } from "../../../../Auth/reducers/authAction";
+import { errorHandlingAction } from "../../../../error/reducer/errorAction";
+
+const options = {
+  headers: { Authorization: `Bearer ${localStorage.auth_token}` }
+};
 
 //#region Get all companies
 //
@@ -16,36 +19,21 @@ import { logoutUser } from "../../../../Auth/reducers/authAction";
 //
 
 export const fetchAllCompanies = () => dispatch => {
-  dispatch(setCompanyIsLoading());
-  const token = localStorage.auth_token;
-  const options = {
-    headers: { Authorization: `Bearer ${token}` }
-  };
+  showLoading(true, dispatch);
   axios
     .get("/company/companies", options)
     .then(res => {
-      dispatch(setCompany(res.data.data));
+      dispatch({
+        type: GET_ALL_COMPANIES,
+        payload: res.data.data
+      });
     })
     .catch(err => {
-      const { status } = err.response;
-      if (status === 401) {
-        return dispatch(logoutUser());
-      }
-      dispatch({
-        type: GET_ERRORS,
-        payload: err
-      });
+      showLoading(false, dispatch);
+      errorHandlingAction(err, dispatch);
     });
 };
 
-export const setCompanyIsLoading = () => ({
-  type: COMPANY_IS_LOADING
-});
-
-export const setCompany = payload => ({
-  type: GET_ALL_COMPANIES,
-  payload: payload
-});
 //#endregion
 
 //#region create company
@@ -54,9 +42,7 @@ export const setCompany = payload => ({
 //
 
 export const createNewCompany = payload => dispatch => {
-  const options = {
-    headers: { Authorization: `Bearer ${localStorage.auth_token}` }
-  };
+  showLoading(true, dispatch);
   axios
     .post("/company/create-company", payload, options)
     .then(res => {
@@ -66,15 +52,8 @@ export const createNewCompany = payload => dispatch => {
       });
     })
     .catch(err => {
-      console.error(err);
-      const { status } = err.response;
-      if (status === 401) {
-        return dispatch(logoutUser());
-      }
-      dispatch({
-        type: GET_ERRORS,
-        payload: err
-      });
+      showLoading(false, dispatch);
+      errorHandlingAction(err, dispatch);
     });
 };
 
@@ -82,9 +61,7 @@ export const createNewCompany = payload => dispatch => {
 
 //#region Remove company
 export const removeCompany = payload => dispatch => {
-  const options = {
-    headers: { Authorization: `Bearer ${localStorage.auth_token}` }
-  };
+  showLoading(true, dispatch);
   axios
     .delete(`/company/delete-company/${payload}`, options)
     .then(res => {
@@ -92,18 +69,10 @@ export const removeCompany = payload => dispatch => {
         type: REMOVE_COMPANY,
         payload: res.data.data.message
       });
-      fetchAllCompanies();
     })
     .catch(err => {
-      console.error(err);
-      const { status } = err.response;
-      if (status === 401) {
-        return dispatch(logoutUser());
-      }
-      dispatch({
-        type: GET_ERRORS,
-        payload: err
-      });
+      showLoading(false, dispatch);
+      errorHandlingAction(err, dispatch);
     });
 };
 
@@ -115,9 +84,7 @@ export const removeCompany = payload => dispatch => {
 //
 
 export const updateCompany = payload => dispatch => {
-  const options = {
-    headers: { Authorization: `Bearer ${localStorage.auth_token}` }
-  };
+  showLoading(true, dispatch);
   axios
     .put("/company/update-company", payload, options)
     .then(res => {
@@ -127,23 +94,19 @@ export const updateCompany = payload => dispatch => {
       });
     })
     .catch(err => {
-      console.error(err.response);
-      const { status } = err.response;
-      if (status === 401) {
-        return dispatch(logoutUser());
-      }
-      dispatch({
-        type: GET_ERRORS,
-        payload: err
-      });
+      showLoading(false, dispatch);
+      errorHandlingAction(err, dispatch);
     });
 };
 
 export const resetCompMessage = () => dispatch => {
   dispatch({
-    type: RESET_COMPANY_MESSAGE,
-    payload: ""
+    type: RESET_COMPANY_MESSAGE
   });
 };
 
 //#endregion
+
+export const showLoading = (show, dispatch) => {
+  dispatch({ type: COMPANY_IS_LOADING, payload: show });
+};

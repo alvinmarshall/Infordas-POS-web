@@ -25,6 +25,7 @@ import {
 } from "./reducer/productAction";
 import SpinnerView from "../../spinner/SpinnerView";
 import PropTypes from "prop-types";
+import { ALERT_MODAL } from "../../../app/common/constants/Constants";
 
 class Product extends Component {
   state = {
@@ -38,12 +39,11 @@ class Product extends Component {
     if (this.props.product.products !== prevProps.product.products) {
       this.setState({ products: this.props.product.products });
     }
-    if (
-      this.props.product &&
-      this.props.product.message !== prevProps.product.message
-    ) {
+    if (this.props.product.message !== prevProps.product.message) {
       if (this.props.product.message) {
-        alert(this.props.product.message);
+        this.props.openModal(ALERT_MODAL, {
+          data: { message: this.props.product.message }
+        });
       }
       this.props.resetProductMessageAction();
       this.props.fetchAllProductAction();
@@ -163,7 +163,7 @@ const mapDispatchToProps = {
   openModal,
   fetchAllProductAction,
   resetProductMessageAction,
-  deleteProductAction,
+  deleteProductAction
 };
 const mapStateToProps = state => ({
   product: state.product

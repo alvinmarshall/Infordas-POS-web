@@ -49,7 +49,7 @@ export const deleteRank = (state, payload) => {
 };
 
 export const resetRankMessage = (state, payload) => {
-  return { ...state, message: payload };
+  return { ...state, message: payload || "" };
 };
 
 export default createReducer(initialState, {

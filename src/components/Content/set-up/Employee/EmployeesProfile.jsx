@@ -5,6 +5,8 @@ import { getEmployeesProfileAction } from "../../Employee/reducers/employeeActio
 import CardProfile from "./CardProfile";
 import { Spinner } from "reactstrap";
 import { resetAccountMessageAction } from "../../account/reducer/accountAction";
+import { openModal } from "../../../modal/modalAction";
+import { ALERT_MODAL } from "../../../../app/common/constants/Constants";
 class EmployeesProfile extends Component {
   state = {
     profiles: []
@@ -20,12 +22,11 @@ class EmployeesProfile extends Component {
         profiles: this.props.employee.profiles
       });
     }
-    if (
-      this.props.account &&
-      this.props.account.message !== prevProps.account.message
-    ) {
+    if (this.props.account.message !== prevProps.account.message) {
       if (this.props.account.message) {
-        alert(this.props.account.message);
+        this.props.openModal(ALERT_MODAL, {
+          data: { message: this.props.account.message }
+        });
       }
       this.props.resetAccountMessageAction();
     }
@@ -35,7 +36,7 @@ class EmployeesProfile extends Component {
     const { profiles } = this.state;
     const { loading } = this.props.employee;
     let cardContent;
-    if (profiles.length === 0 || loading) {
+    if (loading) {
       cardContent = (
         <Spinner
           color="dark"
@@ -69,12 +70,13 @@ EmployeesProfile.propTypes = {
   getEmployeesProfileAction: PropTypes.func.isRequired
 };
 
-const action = {
+const mapDispatchToProps = {
   getEmployeesProfileAction,
-  resetAccountMessageAction
+  resetAccountMessageAction,
+  openModal
 };
-const mapState = state => ({
+const mapStateToProps = state => ({
   employee: state.employee,
   account: state.account
 });
-export default connect(mapState, action)(EmployeesProfile);
+export default connect(mapStateToProps, mapDispatchToProps)(EmployeesProfile);

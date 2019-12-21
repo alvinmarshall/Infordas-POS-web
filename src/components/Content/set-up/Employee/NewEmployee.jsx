@@ -23,21 +23,21 @@ import {
 import { reduxForm, Field } from "redux-form";
 import PropTypes from "prop-types";
 import TextInputWithIcon from "../../../../app/common/forms/TextInputWithIcon";
-import {
-  Form,
-  Card,
-  CardHeader,
-  CardBody,
-  Label,
-  FormGroup
-} from "reactstrap";
+import { Form, Card, CardHeader, CardBody, Label, FormGroup } from "reactstrap";
 import SelectInput from "../../../../app/common/forms/SelectInput";
 import {
   genderOption,
   maritalOption,
-  statusOption
+  statusOption,
+  ALERT_MODAL
 } from "../../../../app/common/constants/Constants";
-import { createEmployeeAction } from "../../Employee/reducers/employeeAction";
+import SpinnerView from "../../../spinner/SpinnerView";
+import {
+  createEmployeeAction,
+  resetEmployeeMessageAction,
+  updateEmployeeProfileAction
+} from "../../Employee/reducers/employeeAction";
+import { openModal } from "../../../modal/modalAction";
 
 const isValidEmail = createValidator(
   message => value => {
@@ -71,16 +71,27 @@ const validate = combineValidators({
 });
 
 class NewEmployee extends Component {
+  componentDidUpdate(prevProps) {
+    if (this.props.employee.message !== prevProps.employee.message) {
+      if (this.props.employee.message) {
+        this.props.openModal(ALERT_MODAL, {
+          data: { message: this.props.employee.message }
+        });
+      }
+      this.props.resetEmployeeMessageAction();
+    }
+  }
+
   onFormSubmit = payload => {
-    console.log("pay", payload);
     if (payload.uuid) {
-      return alert("update form");
+      return this.props.updateEmployeeProfileAction(payload);
     }
     this.props.createEmployeeAction(payload);
   };
 
   render() {
     const { handleSubmit, submitting, pristine } = this.props;
+    const { loading } = this.props.employee;
     return (
       <div>
         <div className="col-md-9">
@@ -113,16 +124,12 @@ class NewEmployee extends Component {
                 </ul>
               </CardHeader>
               {/* /.card-header */}
-              <CardBody >
+              <CardBody>
                 <div className="tab-content">
                   <div className="tab-pane active" id="basic">
                     {/* Basic */}
                     <FormGroup className=" row">
-                      <Label
-                        className="col-sm-2 col-form-label"
-                      >
-                        Name
-                      </Label>
+                      <Label className="col-sm-2 col-form-label">Name</Label>
                       <div className="col-sm-10">
                         {/* name */}
                         <Field
@@ -244,6 +251,7 @@ class NewEmployee extends Component {
                         >
                           Submit
                         </button>
+                        {loading && <SpinnerView />}
                       </div>
                     </FormGroup>
 
@@ -270,24 +278,25 @@ class NewEmployee extends Component {
 }
 
 NewEmployee.propTypes = {
-  createEmployeeAction: PropTypes.func.isRequired
+  createEmployeeAction: PropTypes.func.isRequired,
+  resetEmployeeMessageAction: PropTypes.func,
+  openModal: PropTypes.func
 };
 
-const action = {
-  createEmployeeAction
+const mapDispatchToProps = {
+  createEmployeeAction,
+  resetEmployeeMessageAction,
+  updateEmployeeProfileAction,
+  openModal
 };
 
-const mapState = (state, ownProps) => {
-  const data = ownProps.history.location.profile;
-  if (data) {
-    console.log("profile", data);
-    return { initialValues: data };
-  }
-  return { employee: state.employee };
-};
+const mapStateToProps = (state, ownProps) => ({
+  initialValues: ownProps.location.profile,
+  employee: state.employee
+});
 export default connect(
-  mapState,
-  action
+  mapStateToProps,
+  mapDispatchToProps
 )(
   reduxForm({ form: "employeeForm", enableReinitialize: true, validate })(
     NewEmployee

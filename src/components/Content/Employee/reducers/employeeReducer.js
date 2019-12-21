@@ -16,7 +16,9 @@ import createReducer from "../../../../app/common/util/reducerUtil";
 import {
   CREATE_EMPLOYEE,
   GET_ALL_EMPLOYEES,
-  EMPLOYEE_LOADING
+  EMPLOYEE_LOADING,
+  RESET_EMPLOYEE_MESSAGE,
+  UPDATE_EMPLOYEE
 } from "./employeeConstants";
 
 const initialState = {
@@ -26,19 +28,29 @@ const initialState = {
 };
 
 export const createEmployee = (state, payload) => {
-  return { ...state, message: payload };
+  return { ...state, message: payload, loading: false };
 };
 
 export const getEmployeesProfile = (state, payload) => {
-  return { ...state, profiles: payload,loading:false };
+  return { ...state, profiles: payload, loading: false };
 };
 
 export const setEmployeeLoading = (state, payload) => {
-  return { ...state, loading: true };
+  return { ...state, loading: payload };
+};
+
+export const resetMessage = (state, payload) => {
+  return { ...state, message: payload || "" };
+};
+
+export const updateEmployee = (state, payload) => {
+  return { ...state, message: payload, loading: false };
 };
 
 export default createReducer(initialState, {
   [CREATE_EMPLOYEE]: createEmployee,
   [GET_ALL_EMPLOYEES]: getEmployeesProfile,
-  [EMPLOYEE_LOADING]: setEmployeeLoading
+  [EMPLOYEE_LOADING]: setEmployeeLoading,
+  [RESET_EMPLOYEE_MESSAGE]: resetMessage,
+  [UPDATE_EMPLOYEE]: updateEmployee
 });

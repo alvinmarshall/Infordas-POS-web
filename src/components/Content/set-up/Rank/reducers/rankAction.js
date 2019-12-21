@@ -21,8 +21,7 @@ import {
   DELETE_RANK,
   RESET_RANK_MESSAGE
 } from "./rankConstants";
-import { GET_ERRORS } from "../../../../error/reducer/errorConstants";
-import { logoutUser } from "../../../../Auth/reducers/authAction";
+import { errorHandlingAction } from "../../../../error/reducer/errorAction";
 const options = {
   headers: {
     Authorization: `Bearer ${localStorage.auth_token}`
@@ -33,24 +32,15 @@ const options = {
 //
 
 export const getRanksAction = () => dispatch => {
-  dispatch({
-    type: RANK_LOADING,
-    payload: true
-  });
+  showLoading(true, dispatch);
   axios
     .get("/rank", options)
     .then(res => {
       dispatch({ type: GET_ALL_RANKS, payload: res.data.data });
     })
     .catch(err => {
-      const { status } = err.response;
-      console.log(status);
-      if (status === 401) {
-        dispatch({ type: RANK_LOADING, payload: false });
-        return dispatch(logoutUser());
-      }
-      dispatch({ type: GET_ERRORS, payload: err });
-      dispatch({ type: RANK_LOADING, payload: false });
+      showLoading(false, dispatch);
+      errorHandlingAction(err, dispatch);
     });
 };
 
@@ -59,23 +49,15 @@ export const getRanksAction = () => dispatch => {
 //
 
 export const createRankAction = payload => dispatch => {
-  dispatch({
-    type: RANK_LOADING,
-    payload: true
-  });
+  showLoading(true, dispatch);
   axios
     .post("/rank/create-rank", payload, options)
     .then(res => {
       dispatch({ type: CREATE_RANK, payload: res.data.data.message });
     })
     .catch(err => {
-      const { status } = err.response;
-      if (status === 401) {
-        dispatch({ type: RANK_LOADING, payload: false });
-        return dispatch(logoutUser);
-      }
-      dispatch({ type: GET_ERRORS, payload: err });
-      dispatch({ type: RANK_LOADING, payload: false });
+      showLoading(false, dispatch);
+      errorHandlingAction(err, dispatch);
     });
 };
 
@@ -84,22 +66,15 @@ export const createRankAction = payload => dispatch => {
 //
 
 export const updateRankAction = payload => dispatch => {
-  dispatch({
-    type: RANK_LOADING,
-    payload: true
-  });
+  showLoading(true, dispatch);
   axios
     .put("/rank/update-rank", payload, options)
     .then(res => {
       dispatch({ type: UPDATE_RANK, payload: res.data.data.message });
     })
     .catch(err => {
-      const { status } = err.response;
-      if (status === 401) {
-        return dispatch(logoutUser);
-      }
-      dispatch({ type: GET_ERRORS, payload: err });
-      dispatch({ type: RANK_LOADING, payload: false });
+      showLoading(false, dispatch);
+      errorHandlingAction(err, dispatch);
     });
 };
 
@@ -108,22 +83,15 @@ export const updateRankAction = payload => dispatch => {
 //
 
 export const deleteRankAction = payload => dispatch => {
-  dispatch({
-    type: RANK_LOADING,
-    payload: true
-  });
+  showLoading(true, dispatch);
   axios
     .delete(`/rank/delete-rank/${payload}`, options)
     .then(res => {
       dispatch({ type: DELETE_RANK, payload: res.data.data.message });
     })
     .catch(err => {
-      const { status } = err.response;
-      if (status === 401) {
-        return dispatch(logoutUser);
-      }
-      dispatch({ type: GET_ERRORS, payload: err });
-      dispatch({ type: RANK_LOADING, payload: false });
+      showLoading(false, dispatch);
+      errorHandlingAction(err, dispatch);
     });
 };
 
@@ -132,4 +100,8 @@ export const resetRankMessageAction = () => dispatch => {
     type: RESET_RANK_MESSAGE,
     payload: ""
   });
+};
+
+const showLoading = (show, dispatch) => {
+  dispatch({ type: RANK_LOADING, payload: show });
 };

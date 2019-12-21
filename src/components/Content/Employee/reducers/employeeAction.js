@@ -13,61 +13,70 @@
 // limitations under the License.
 
 import axios from "axios";
-import { GET_ERRORS } from "../../../error/reducer/errorConstants";
 import {
   CREATE_EMPLOYEE,
   GET_ALL_EMPLOYEES,
-  EMPLOYEE_LOADING
+  EMPLOYEE_LOADING,
+  RESET_EMPLOYEE_MESSAGE,
+  UPDATE_EMPLOYEE
 } from "./employeeConstants";
-import { logoutUser } from "../../../Auth/reducers/authAction";
+import { errorHandlingAction } from "../../../error/reducer/errorAction";
 const options = {
   headers: { Authorization: `Bearer ${localStorage.auth_token}` }
 };
+
 export const createEmployeeAction = payload => dispatch => {
+  showEmployeeLoading(true, dispatch);
   axios
     .post("/employee/create-new", payload, options)
     .then(res => {
-      console.log(res.data);
       dispatch({
         type: CREATE_EMPLOYEE,
         payload: res.data.data.message
       });
     })
     .catch(err => {
-      console.log(err);
-      const { status } = err.response;
-      if (status === 401) {
-        return dispatch(logoutUser());
-      }
-      dispatch({
-        type: GET_ERRORS,
-        payload: err
-      });
+      showEmployeeLoading(false, dispatch);
+      errorHandlingAction(err, dispatch);
     });
 };
 
 export const getEmployeesProfileAction = () => dispatch => {
-  dispatch({
-    type: EMPLOYEE_LOADING
-  });
+  showEmployeeLoading(true, dispatch);
   axios
-    .get("/employee/infos",options)
+    .get("/employee/infos", options)
     .then(res => {
-      console.log("profiles", res.data);
       dispatch({
         type: GET_ALL_EMPLOYEES,
         payload: res.data.data
       });
     })
     .catch(err => {
-      const { status } = err.response;
-      if (status === 401) {
-        return dispatch(logoutUser());
-      }
-
-      dispatch({
-        type: GET_ERRORS,
-        payload: err
-      });
+      showEmployeeLoading(false, dispatch);
+      errorHandlingAction(err, dispatch);
     });
+};
+
+export const updateEmployeeProfileAction = payload => dispatch => {
+  showEmployeeLoading(true, dispatch);
+  axios
+    .put("/employee/update-employee", payload,options)
+    .then(res => {
+      dispatch({ type: UPDATE_EMPLOYEE, payload: res.data.data.message });
+    })
+    .catch(err => {
+      showEmployeeLoading(false, dispatch);
+      errorHandlingAction(err, dispatch);
+    });
+};
+
+export const resetEmployeeMessageAction = () => dispatch => {
+  dispatch({ type: RESET_EMPLOYEE_MESSAGE });
+};
+
+const showEmployeeLoading = (show, dispatch) => {
+  dispatch({
+    type: EMPLOYEE_LOADING,
+    payload: show
+  });
 };
