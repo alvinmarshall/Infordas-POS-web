@@ -21,9 +21,9 @@ import {
   DELETE_PRODUCT,
   UPDATE_PRODUCT
 } from "./productConstants";
-import { errorHandlingAction } from "../../../error/reducer/errorAction";
 import { GET_ALL_PRODUCT_BRAND } from "./brandConstants";
 import { GET_ALL_PRODUCT_CATEGORY } from "./categoryConstansts";
+import { errorHandlingAction } from "../../../../error/reducer/errorAction";
 
 const options = {
   headers: { Authorization: `Bearer ${localStorage.auth_token}` }

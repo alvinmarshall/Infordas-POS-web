@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchAllCategoryAction } from "../reducer/categoryAction";
-import { openModal } from "../../../modal/modalAction";
+import { openModal } from "../../../../modal/modalAction";
 import ProductCategoryTable from "./ProductCategoryTable";
 import { PRODUCT_CATEGORY_MODAL } from "../reducer/categoryConstansts";
-import SpinnerView from "../../../spinner/SpinnerView";
+import SpinnerView from "../../../../spinner/SpinnerView";
 import { resetProductMessageAction } from "../reducer/productAction";
 
 class ProductCategory extends Component {

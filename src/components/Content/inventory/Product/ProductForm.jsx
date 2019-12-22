@@ -15,9 +15,9 @@
 import React, { Component } from "react";
 import { Form, FormGroup, ModalFooter } from "reactstrap";
 import { reduxForm, Field } from "redux-form";
-import TextInputWithIcon from "../../../app/common/forms/TextInputWithIcon";
+import TextInputWithIcon from "../../../../app/common/forms/TextInputWithIcon";
 import { connect } from "react-redux";
-import SelectInput from "../../../app/common/forms/SelectInput";
+import SelectInput from "../../../../app/common/forms/SelectInput";
 import {
   createProductAction,
   updateProductAction,
@@ -25,7 +25,7 @@ import {
 } from "./reducer/productAction";
 import PropTypes from "prop-types";
 import { combineValidators, isRequired } from "revalidate";
-import SpinnerView from "../../spinner/SpinnerView";
+import SpinnerView from "../../../spinner/SpinnerView";
 
 const validate = combineValidators({
   name: isRequired({ message: "name of product is required" }),

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Modal, ModalHeader, ModalBody } from "reactstrap";
-import ProductCategoryForm from "../../Content/Product/category/ProductCategoryForm";
 import { connect } from "react-redux";
 import { closeModel } from "../modalAction";
+import ProductCategoryForm from "../../Content/inventory/Product/category/ProductCategoryForm";
 
 const ProductCategoryModal = ({ closeModel, data }) => {
   const [modal, setModal] = useState(true);

@@ -2,13 +2,13 @@ import React, { Component } from "react";
 import { Form, FormGroup, ModalFooter } from "reactstrap";
 import { reduxForm, Field } from "redux-form";
 import { connect } from "react-redux";
-import SpinnerView from "../../../spinner/SpinnerView";
-import TextInputWithIcon from "../../../../app/common/forms/TextInputWithIcon";
+import SpinnerView from "../../../../spinner/SpinnerView";
 import {
   createCategoryAction,
   updateCategoryAction
 } from "../reducer/categoryAction";
 import { combineValidators, isRequired } from "revalidate";
+import TextInputWithIcon from "../../../../../app/common/forms/TextInputWithIcon";
 
 const validate = combineValidators({
   name: isRequired({ message: "category name required" })

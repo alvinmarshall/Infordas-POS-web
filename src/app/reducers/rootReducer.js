@@ -22,7 +22,7 @@ import { reducer as FormReducer } from "redux-form";
 import employeeReducer from "../../components/Content/Employee/reducers/employeeReducer";
 import rankReducer from "../../components/Content/set-up/Rank/reducers/rankReducer";
 import accountReducer from "../../components/Content/account/reducer/accountReducer";
-import productReducer from "../../components/Content/Product/reducer/productReducer";
+import productReducer from "../../components/Content/inventory/Product/reducer/productReducer";
 
 export default combineReducers({
   auth: authReducer,

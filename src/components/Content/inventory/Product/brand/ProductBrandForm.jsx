@@ -17,10 +17,10 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Form, FormGroup, ModalFooter } from "reactstrap";
 import { reduxForm, Field } from "redux-form";
-import TextInputWithIcon from "../../../../app/common/forms/TextInputWithIcon";
-import SpinnerView from "../../../spinner/SpinnerView";
+import SpinnerView from "../../../../spinner/SpinnerView";
 import { combineValidators, isRequired } from "revalidate";
 import { createBrandAction, updateBrandAction } from "../reducer/brandAction";
+import TextInputWithIcon from "../../../../../app/common/forms/TextInputWithIcon";
 
 const validate = combineValidators({
   name: isRequired({ message: "brand name is required" })

@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import createReducer from "../../../../app/common/util/reducerUtil";
+import createReducer from "../../../../../app/common/util/reducerUtil";
 import {
   CREATE_PRODUCT,
   GET_ALL_PRODUCT,

@@ -13,9 +13,7 @@
 // limitations under the License.
 
 import React, { Component } from "react";
-import ProductTable from "./ProductTable";
 import { connect } from "react-redux";
-import { openModal } from "../../modal/modalAction";
 import { PRODUCT_MODAL } from "./reducer/productConstants";
 import {
   fetchAllProductAction,
@@ -23,9 +21,11 @@ import {
   deleteProductAction,
   fetchSelectionInput
 } from "./reducer/productAction";
-import SpinnerView from "../../spinner/SpinnerView";
 import PropTypes from "prop-types";
-import { ALERT_MODAL } from "../../../app/common/constants/Constants";
+import ProductTable from "./ProductTable";
+import { ALERT_MODAL } from "../../../../app/common/constants/Constants";
+import { openModal } from "../../../modal/modalAction";
+import SpinnerView from "../../../spinner/SpinnerView";
 
 class Product extends Component {
   state = {
