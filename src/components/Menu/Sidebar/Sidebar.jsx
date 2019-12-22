@@ -68,6 +68,7 @@ const Sidebar = ({ user, logoutUser }) => {
                 </NavLink>
               </li>
 
+              <li className="nav-header">Admin access</li>
               <li className="nav-item has-treeview">
                 <a href="#f" className="nav-link">
                   <i className="nav-icon fas fa-cogs" />
@@ -104,19 +105,6 @@ const Sidebar = ({ user, logoutUser }) => {
                   </li>
 
                   <li className="nav-item">
-                    <NavLink to="/profiles" className="nav-link">
-                      <i className="far fa-circle nav-icon" />
-                      <p>Employee Profiles</p>
-                    </NavLink>
-                  </li>
-                  <li className="nav-item">
-                    <NavLink to="/f" className="nav-link">
-                      <i className="far fa-circle nav-icon" />
-                      <p>Vendors</p>
-                    </NavLink>
-                  </li>
-
-                  <li className="nav-item">
                     <NavLink to="/f" className="nav-link">
                       <i className="far fa-circle nav-icon" />
                       <p>Customers</p>
@@ -135,13 +123,13 @@ const Sidebar = ({ user, logoutUser }) => {
                 </a>
                 <ul className="nav nav-treeview">
                   <li className="nav-item">
-                    <a href="../forms/advanced.html" className="nav-link">
+                    <NavLink to="/profiles" className="nav-link">
                       <i className="far fa-circle nav-icon" />
-                      <p>Employees</p>
-                    </a>
+                      <p>Profiles</p>
+                    </NavLink>
                   </li>
                   <li className="nav-item">
-                    <a href="../forms/editors.html" className="nav-link">
+                    <a href="#d" className="nav-link">
                       <i className="far fa-circle nav-icon" />
                       <p>Editors</p>
                     </a>
@@ -149,6 +137,7 @@ const Sidebar = ({ user, logoutUser }) => {
                 </ul>
               </li>
 
+              <li className="nav-header">Inventory</li>
               <li className="nav-item has-treeview">
                 <a href="fake_url" className="nav-link">
                   <i className="nav-icon fas fa-cart-plus" />
@@ -159,7 +148,7 @@ const Sidebar = ({ user, logoutUser }) => {
                 </a>
                 <ul className="nav nav-treeview">
                   <li className="nav-item">
-                    <a href="../forms/advanced.html" className="nav-link">
+                    <a href="#d" className="nav-link">
                       <i className="far fa-circle nav-icon" />
                       <p>Sale</p>
                     </a>
@@ -167,7 +156,7 @@ const Sidebar = ({ user, logoutUser }) => {
                   <li className="nav-item">
                     <a href="#d" className="nav-link">
                       <i className="far fa-circle nav-icon" />
-                      <p>Editors</p>
+                      <p>Orders</p>
                     </a>
                   </li>
                 </ul>
@@ -212,6 +201,31 @@ const Sidebar = ({ user, logoutUser }) => {
 
               <li className="nav-item has-treeview">
                 <a href="fake_url" className="nav-link">
+                  <i className="nav-icon fas fa-users" />
+                  <p>
+                    Customers
+                    <i className="fas fa-angle-left right" />
+                  </p>
+                </a>
+                <ul className="nav nav-treeview">
+                  <li className="nav-item">
+                    <a href="#d" className="nav-link">
+                      <i className="far fa-circle nav-icon" />
+                      <p>Profiles</p>
+                    </a>
+                  </li>
+                  <li className="nav-item">
+                    <a href="#d" className="nav-link">
+                      <i className="far fa-circle nav-icon text-danger" />
+                      <p>Debtors</p>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+
+              <li className="nav-header">User Options</li>
+              <li className="nav-item has-treeview">
+                <a href="fake_url" className="nav-link">
                   <i className="nav-icon fas fa-cog" />
                   <p>
                     Settings
@@ -220,14 +234,14 @@ const Sidebar = ({ user, logoutUser }) => {
                 </a>
                 <ul className="nav nav-treeview">
                   <li className="nav-item">
-                    <a href="../forms/advanced.html" className="nav-link">
+                    <a href="#f" className="nav-link">
                       <i className="far fa-circle nav-icon" />
                       <p>Profile</p>
                     </a>
                   </li>
                   <li className="nav-item">
                     <a onClick={() => logoutUser()} className="nav-link">
-                      <i className="far fa-circle nav-icon" />
+                      <i className="far fa-circle nav-icon text-danger" />
                       <p>Logout</p>
                     </a>
                   </li>

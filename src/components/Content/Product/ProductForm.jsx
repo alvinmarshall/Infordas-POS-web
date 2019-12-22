@@ -35,6 +35,9 @@ const validate = combineValidators({
 });
 
 class ProductForm extends Component {
+  state = {
+    fileUrl: null
+  };
   componentDidMount() {
     this.props.fetchSelectionInput();
   }
@@ -62,9 +65,16 @@ class ProductForm extends Component {
     this.props.createProductAction(payload);
   };
 
+  handleFileSelectInput = evt => {
+    this.setState({
+      fileUrl: URL.createObjectURL(evt.target.files[0])
+    });
+  };
+
   render() {
     const categoryOptions = [{ key: -1, value: "" }];
     const brandOptions = [{ key: -1, value: "" }];
+    const { fileUrl } = this.state;
     const { toggle, handleSubmit, submitting, pristine } = this.props;
     const { loading } = this.props.product;
     const { categories, brands } = this.props.product;
@@ -205,7 +215,7 @@ class ProductForm extends Component {
               <div className="card" style={{ width: "20rem" }}>
                 <img
                   className="card-img-top"
-                  src="../../dist/img/user1-128x128.jpg"
+                  src={fileUrl ? fileUrl : "../../dist/img/user1-128x128.jpg"}
                   alt="Card image cap"
                 />
                 <div className="card-body">
@@ -213,7 +223,12 @@ class ProductForm extends Component {
                     <label>Product Image</label>
                     <div className="input-group">
                       <div className="custom-file">
-                        <input type="file" className="custom-file-input" />
+                        <input
+                          accept="image/*"
+                          type="file"
+                          className="custom-file-input"
+                          onChange={this.handleFileSelectInput}
+                        />
                         <label className="custom-file-label">Choose file</label>
                       </div>
                       <div className="input-group-append">
