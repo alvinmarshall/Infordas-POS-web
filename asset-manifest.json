@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.js": "/infordas-pos/static/js/main.60a58f83.chunk.js",
-    "main.js.map": "/infordas-pos/static/js/main.60a58f83.chunk.js.map",
-    "runtime-main.js": "/infordas-pos/static/js/runtime-main.0b1f9c65.js",
-    "runtime-main.js.map": "/infordas-pos/static/js/runtime-main.0b1f9c65.js.map",
-    "static/js/2.ca8a1760.chunk.js": "/infordas-pos/static/js/2.ca8a1760.chunk.js",
-    "static/js/2.ca8a1760.chunk.js.map": "/infordas-pos/static/js/2.ca8a1760.chunk.js.map",
-    "index.html": "/infordas-pos/index.html",
-    "precache-manifest.18df17523d8a39a4de6c802a2977ac97.js": "/infordas-pos/precache-manifest.18df17523d8a39a4de6c802a2977ac97.js",
-    "service-worker.js": "/infordas-pos/service-worker.js"
+    "main.js": "/Infordas-POS-web/static/js/main.6e143a02.chunk.js",
+    "main.js.map": "/Infordas-POS-web/static/js/main.6e143a02.chunk.js.map",
+    "runtime-main.js": "/Infordas-POS-web/static/js/runtime-main.af1cbd73.js",
+    "runtime-main.js.map": "/Infordas-POS-web/static/js/runtime-main.af1cbd73.js.map",
+    "static/js/2.ca8a1760.chunk.js": "/Infordas-POS-web/static/js/2.ca8a1760.chunk.js",
+    "static/js/2.ca8a1760.chunk.js.map": "/Infordas-POS-web/static/js/2.ca8a1760.chunk.js.map",
+    "index.html": "/Infordas-POS-web/index.html",
+    "precache-manifest.270673d7dc2d9228e12b8bc119907f67.js": "/Infordas-POS-web/precache-manifest.270673d7dc2d9228e12b8bc119907f67.js",
+    "service-worker.js": "/Infordas-POS-web/service-worker.js"
   },
   "entrypoints": [
-    "static/js/runtime-main.0b1f9c65.js",
+    "static/js/runtime-main.af1cbd73.js",
     "static/js/2.ca8a1760.chunk.js",
-    "static/js/main.60a58f83.chunk.js"
+    "static/js/main.6e143a02.chunk.js"
   ]
 }
