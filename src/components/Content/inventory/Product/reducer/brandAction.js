@@ -13,14 +13,15 @@
 // limitations under the License.
 
 import axios from "axios";
+
 import {
-  PRODUCT_BRAND_LOADING,
   GET_ALL_PRODUCT_BRAND,
   CREATE_PRODUCT_BRAND,
   UPDATE_PRODUCT_BRAND,
-  REMOVE_PRODUCT_BRAND
+  REMOVE_PRODUCT_BRAND,
+  PRODUCT_BRAND_LOADING
 } from "./brandConstants";
-import { errorHandlingAction } from "../../../error/reducer/errorAction";
+import { errorHandlingAction } from "../../../../error/reducer/errorAction";
 const options = {
   headers: { Authorization: `Bearer ${localStorage.auth_token}` }
 };
@@ -82,7 +83,7 @@ export const updateBrandAction = payload => dispatch => {
 export const removeBrandAction = payload => dispatch => {
   setLoading(dispatch, true);
   axios
-    .delete("/product/remove-brand", payload,options)
+    .delete("/product/remove-brand", payload, options)
     .then(res => {
       dispatch({ type: REMOVE_PRODUCT_BRAND, payload: res.data.data.message });
     })

@@ -17,7 +17,7 @@ import { Modal, ModalHeader, ModalBody } from "reactstrap";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { closeModel } from "../modalAction";
-import ProductForm from "../../Content/Product/ProductForm";
+import ProductForm from "../../Content/inventory/Product/ProductForm";
 
 const ProductModal = ({ closeModel, data }) => {
   const [modal, setModal] = useState(true);

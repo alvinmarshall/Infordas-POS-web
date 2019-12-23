@@ -5,7 +5,7 @@ import {
   PRODUCT_CATEGORY_LOADING,
   CREATE_PRODUCT_CATEGORY
 } from "./categoryConstansts";
-import { errorHandlingAction } from "../../../error/reducer/errorAction";
+import { errorHandlingAction } from "../../../../error/reducer/errorAction";
 
 const options = {
   headers: { Authorization: `Bearer ${localStorage.auth_token}` }

@@ -20,9 +20,10 @@ import Rank from "./set-up/Rank/Rank";
 import PrivateRoute from "../Auth/route/PrivateRoute";
 import NewEmployee from "./set-up/Employee/NewEmployee";
 import EmployeesProfile from "./set-up/Employee/EmployeesProfile";
-import Product from "./Product/Product";
-import ProductCategory from "./Product/category/ProductCategory";
-import ProductBrand from "./Product/brand/ProductBrand";
+import Product from "./inventory/Product/Product";
+import ProductBrand from "./inventory/Product/brand/ProductBrand";
+import ProductCategory from "./inventory/Product/category/ProductCategory";
+import PurchaseProduct from "./inventory/Purchase/PurchaseProduct";
 
 export default class Content extends Component {
   render() {
@@ -37,6 +38,8 @@ export default class Content extends Component {
           <PrivateRoute path="/product" exact component={Product} />
           <PrivateRoute path="/product-category" component={ProductCategory} />
           <PrivateRoute path="/product-brand" component={ProductBrand} />
+          <PrivateRoute path="/purchase-product" component={PurchaseProduct} />
+
 
         </Switch>
       </section>

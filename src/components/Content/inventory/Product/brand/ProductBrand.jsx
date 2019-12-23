@@ -15,12 +15,12 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { openModal } from "../../../modal/modalAction";
-import SpinnerView from "../../../spinner/SpinnerView";
 import ProductBrandTable from "./ProductBrandTable";
 import { PRODUCT_BRAND_MODAL } from "../reducer/brandConstants";
 import { fetchAllBrandsAction } from "../reducer/brandAction";
 import { resetProductMessageAction } from "../reducer/productAction";
+import { openModal } from "../../../../modal/modalAction";
+import SpinnerView from "../../../../spinner/SpinnerView";
 
 class ProductBrand extends Component {
   state = {

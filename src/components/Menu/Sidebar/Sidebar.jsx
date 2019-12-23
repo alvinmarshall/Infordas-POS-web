@@ -191,7 +191,7 @@ const Sidebar = ({ user, logoutUser }) => {
                     </NavLink>
                   </li>
                   <li className="nav-item">
-                    <NavLink to="/purchase" className="nav-link">
+                    <NavLink to="/purchase-product" className="nav-link">
                       <i className="far fa-circle nav-icon" />
                       <p>Purchase</p>
                     </NavLink>
@@ -240,7 +240,7 @@ const Sidebar = ({ user, logoutUser }) => {
                     </a>
                   </li>
                   <li className="nav-item">
-                    <a onClick={() => logoutUser()} className="nav-link">
+                    <a href="#f" onClick={() => logoutUser()} className="nav-link">
                       <i className="far fa-circle nav-icon text-danger" />
                       <p>Logout</p>
                     </a>

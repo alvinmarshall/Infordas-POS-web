@@ -8,6 +8,7 @@ import ProductModal from "./product/ProductModal";
 import ProductCategoryModal from "./product/ProductCategoryModal";
 import ProductBrandModal from "./product/ProductBrandModal";
 import AlertModal from "./alert/AlertModal";
+import PurchaseProductModal from "./product/PurchaseProductModal";
 const ModalManager = ({ currentModal }) => {
   let renderedModal;
   if (currentModal) {
@@ -26,7 +27,8 @@ const modalLookUps = {
   ProductModal,
   ProductCategoryModal,
   ProductBrandModal,
-  AlertModal
+  AlertModal,
+  PurchaseProductModal
 };
 
 const mapState = state => ({

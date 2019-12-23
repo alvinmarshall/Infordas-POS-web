@@ -13,19 +13,19 @@
 // limitations under the License.
 
 import React, { Component } from "react";
-import ProductTable from "./ProductTable";
 import { connect } from "react-redux";
-import { openModal } from "../../modal/modalAction";
 import { PRODUCT_MODAL } from "./reducer/productConstants";
 import {
   fetchAllProductAction,
   resetProductMessageAction,
   deleteProductAction,
-  fetchSelectionInput
 } from "./reducer/productAction";
-import SpinnerView from "../../spinner/SpinnerView";
 import PropTypes from "prop-types";
-import { ALERT_MODAL } from "../../../app/common/constants/Constants";
+import ProductTable from "./ProductTable";
+import { ALERT_MODAL } from "../../../../app/common/constants/Constants";
+import { openModal } from "../../../modal/modalAction";
+import SpinnerView from "../../../spinner/SpinnerView";
+import { resetPurchaseMessageAction } from "../Purchase/reducer/purchaseAction";
 
 class Product extends Component {
   state = {
@@ -46,6 +46,15 @@ class Product extends Component {
         });
       }
       this.props.resetProductMessageAction();
+      this.props.fetchAllProductAction();
+    }
+    if (this.props.inventory.message !== prevProps.inventory.message) {
+      if (this.props.inventory.message) {
+        this.props.openModal(ALERT_MODAL, {
+          data: { message: this.props.inventory.message }
+        });
+      }
+      this.props.resetPurchaseMessageAction();
       this.props.fetchAllProductAction();
     }
   }
@@ -71,7 +80,6 @@ class Product extends Component {
     const { products } = this.state;
     const { loading, pageNext, pagePrev } = this.props.product;
     let productContent;
-    let paginate;
     if (loading) {
       productContent = <SpinnerView />;
     } else {
@@ -156,16 +164,19 @@ Product.propTypes = {
   openModal: PropTypes.func,
   fetchAllProductAction: PropTypes.func,
   resetProductMessageAction: PropTypes.func,
-  deleteProductAction: PropTypes.func
+  deleteProductAction: PropTypes.func,
+  resetPurchaseMessageAction: PropTypes.func
 };
 
 const mapDispatchToProps = {
   openModal,
   fetchAllProductAction,
   resetProductMessageAction,
-  deleteProductAction
+  deleteProductAction,
+  resetPurchaseMessageAction
 };
 const mapStateToProps = state => ({
-  product: state.product
+  product: state.product,
+  inventory: state.inventory
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Product);

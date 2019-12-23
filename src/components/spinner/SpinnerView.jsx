@@ -14,10 +14,11 @@
 
 import React from "react";
 import { Spinner } from "reactstrap";
-const SpinnerView = props => {
+const SpinnerView = ({ className }) => {
   return (
     <div className="mx-auto">
       <Spinner
+        className={className}
         color="dark"
         type="grow"
         style={{ width: "3rem", height: "3rem" }}
