@@ -14,19 +14,18 @@
 
 import React from "react";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
 import { PRODUCT_MODAL } from "./reducer/productConstants";
+import { PURCHASE_PRODUCT_MODAL } from "../Purchase/reducer/purchaseConstants";
 const ProductTable = ({ products, openModal, handleDeleteProduct }) => {
   return (
-    <div className="card-body table-responsive p-0" >
+    <div className="card-body table-responsive p-0">
       <table className="table table-bordered table-striped table-hover">
         <thead>
           <tr>
             <th>Name</th>
             <th>Buy Price</th>
             <th>Retail Price</th>
-            <th>InStock</th>
-            <th>Unit</th>
+            <th>Quantity</th>
             <th>Category</th>
             <th>Brand</th>
             <th>Action</th>
@@ -37,14 +36,21 @@ const ProductTable = ({ products, openModal, handleDeleteProduct }) => {
             products.map((data, index) => (
               <tr key={index}>
                 <td>{data.name} </td>
-                <td>{data.buyPrice}</td>
-                <td>{data.retailPrice}</td>
-                <td>{data.stock}</td>
-                <td>{data.unit}</td>
+                <td>{data.buyPrice || 0}</td>
+                <td>{data.retailPrice || 0}</td>
+                <td>{data.stock || 0}</td>
                 <td>{data.category}</td>
                 <td>{data.brand}</td>
                 <td>
                   <div className="btn-group">
+                    <button
+                      onClick={() =>
+                        openModal(PURCHASE_PRODUCT_MODAL, { data: data })
+                      }
+                      className="btn btn-sm btn-default"
+                    >
+                      <i className="fas fa-plus"></i>&nbsp;Purchase
+                    </button>
                     <button
                       onClick={() => openModal(PRODUCT_MODAL, { data: data })}
                       className="btn btn-sm btn-warning"
@@ -64,7 +70,6 @@ const ProductTable = ({ products, openModal, handleDeleteProduct }) => {
         </tbody>
       </table>
     </div>
-    
   );
 };
 
@@ -74,7 +79,4 @@ ProductTable.propTypes = {
   handleDeleteProduct: PropTypes.func
 };
 
-const mapDispatchToProps = {};
-
-const mapStateToProps = state => ({});
 export default ProductTable;

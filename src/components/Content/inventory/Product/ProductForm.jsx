@@ -28,10 +28,7 @@ import { combineValidators, isRequired } from "revalidate";
 import SpinnerView from "../../../spinner/SpinnerView";
 
 const validate = combineValidators({
-  name: isRequired({ message: "name of product is required" }),
-  buyPrice: isRequired({ message: "this price is required" }),
-  retailPrice: isRequired({ message: "this price is required" }),
-  stock: isRequired({ message: "stock quantity is required" })
+  name: isRequired({ message: "name of product is required" })
 });
 
 class ProductForm extends Component {
@@ -79,19 +76,15 @@ class ProductForm extends Component {
     const { loading } = this.props.product;
     const { categories, brands } = this.props.product;
 
-    {
-      brands &&
-        brands.map((brand, index) => {
-          brandOptions.push({ key: index, value: brand.name });
-        });
-    }
+    brands &&
+      brands.map((brand, index) => {
+        return brandOptions.push({ key: index, value: brand.name });
+      });
 
-    {
-      categories &&
-        categories.map((category, index) => {
-          categoryOptions.push({ key: index, value: category.name });
-        });
-    }
+    categories &&
+      categories.map((category, index) => {
+        return categoryOptions.push({ key: index, value: category.name });
+      });
 
     return (
       <div>
@@ -141,6 +134,7 @@ class ProductForm extends Component {
                 <label className="col-sm-2 col-form-label">BuyPrice</label>
                 <div className="col-sm-10">
                   <Field
+                    readOnly
                     name="buyPrice"
                     type="number"
                     component={TextInputWithIcon}
@@ -152,6 +146,7 @@ class ProductForm extends Component {
                 <label className="col-sm-2 col-form-label">RetailPrice</label>
                 <div className="col-sm-10">
                   <Field
+                    readOnly
                     name="retailPrice"
                     type="number"
                     component={TextInputWithIcon}
@@ -162,6 +157,7 @@ class ProductForm extends Component {
                 <label className="col-sm-2 col-form-label">Stock</label>
                 <div className="col-sm-10">
                   <Field
+                    readOnly
                     name="stock"
                     type="number"
                     component={TextInputWithIcon}
@@ -216,7 +212,7 @@ class ProductForm extends Component {
                 <img
                   className="card-img-top"
                   src={fileUrl ? fileUrl : "../../dist/img/user1-128x128.jpg"}
-                  alt="Card image cap"
+                  alt="Card"
                 />
                 <div className="card-body">
                   <div className="form-group">

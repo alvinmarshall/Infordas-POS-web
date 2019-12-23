@@ -23,6 +23,7 @@ import employeeReducer from "../../components/Content/Employee/reducers/employee
 import rankReducer from "../../components/Content/set-up/Rank/reducers/rankReducer";
 import accountReducer from "../../components/Content/account/reducer/accountReducer";
 import productReducer from "../../components/Content/inventory/Product/reducer/productReducer";
+import purchaseReducer from "../../components/Content/inventory/Purchase/reducer/purchaseReducer";
 
 export default combineReducers({
   auth: authReducer,
@@ -34,5 +35,6 @@ export default combineReducers({
   employee: employeeReducer,
   rank: rankReducer,
   account: accountReducer,
-  product: productReducer
+  product: productReducer,
+  inventory: purchaseReducer
 });
