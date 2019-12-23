@@ -1,6 +1,7 @@
 import axios from "axios";
+import { BASE_URL } from "../../../app/common/constants/Constants";
 const setAuthToken = token => {
-  axios.defaults.baseURL = "https://protected-reef-45264.herokuapp.com";
+  axios.defaults.baseURL = BASE_URL;
   if (token) {
     axios.defaults.headers.common["Authorization"] = token;
     return;
