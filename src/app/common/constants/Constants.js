@@ -30,7 +30,7 @@ export const statusOption = [
   { key: "1", value: "Active" }
 ];
 
-export const BASE_URL = process.env.BASE_URL || "http://localhost:9000";
+export const BASE_URL = "https://protected-reef-45264.herokuapp.com"
 export const downloadUrl = `${BASE_URL}/files/download?url`;
 
 export const ALERT_MODAL = "AlertModal";
