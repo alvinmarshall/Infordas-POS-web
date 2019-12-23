@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.js": "/Infordas-POS-web/static/js/main.6e143a02.chunk.js",
-    "main.js.map": "/Infordas-POS-web/static/js/main.6e143a02.chunk.js.map",
-    "runtime-main.js": "/Infordas-POS-web/static/js/runtime-main.af1cbd73.js",
-    "runtime-main.js.map": "/Infordas-POS-web/static/js/runtime-main.af1cbd73.js.map",
-    "static/js/2.ca8a1760.chunk.js": "/Infordas-POS-web/static/js/2.ca8a1760.chunk.js",
-    "static/js/2.ca8a1760.chunk.js.map": "/Infordas-POS-web/static/js/2.ca8a1760.chunk.js.map",
-    "index.html": "/Infordas-POS-web/index.html",
-    "precache-manifest.270673d7dc2d9228e12b8bc119907f67.js": "/Infordas-POS-web/precache-manifest.270673d7dc2d9228e12b8bc119907f67.js",
-    "service-worker.js": "/Infordas-POS-web/service-worker.js"
+    "main.js": "/Bik-Krlvn.github.io/Infordas-POS-web/static/js/main.51d2b255.chunk.js",
+    "main.js.map": "/Bik-Krlvn.github.io/Infordas-POS-web/static/js/main.51d2b255.chunk.js.map",
+    "runtime-main.js": "/Bik-Krlvn.github.io/Infordas-POS-web/static/js/runtime-main.0952aed8.js",
+    "runtime-main.js.map": "/Bik-Krlvn.github.io/Infordas-POS-web/static/js/runtime-main.0952aed8.js.map",
+    "static/js/2.a3d1adee.chunk.js": "/Bik-Krlvn.github.io/Infordas-POS-web/static/js/2.a3d1adee.chunk.js",
+    "static/js/2.a3d1adee.chunk.js.map": "/Bik-Krlvn.github.io/Infordas-POS-web/static/js/2.a3d1adee.chunk.js.map",
+    "index.html": "/Bik-Krlvn.github.io/Infordas-POS-web/index.html",
+    "precache-manifest.32e65db1a860a1591bb574eeab914d2f.js": "/Bik-Krlvn.github.io/Infordas-POS-web/precache-manifest.32e65db1a860a1591bb574eeab914d2f.js",
+    "service-worker.js": "/Bik-Krlvn.github.io/Infordas-POS-web/service-worker.js"
   },
   "entrypoints": [
-    "static/js/runtime-main.af1cbd73.js",
-    "static/js/2.ca8a1760.chunk.js",
-    "static/js/main.6e143a02.chunk.js"
+    "static/js/runtime-main.0952aed8.js",
+    "static/js/2.a3d1adee.chunk.js",
+    "static/js/main.51d2b255.chunk.js"
   ]
 }
