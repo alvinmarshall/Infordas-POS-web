@@ -11,8 +11,10 @@ import {
   logoutUser,
   setCurrentUser
 } from "./components/Auth/reducers/authAction";
+import { BASE_URL } from "./app/common/constants/Constants";
 const rootEl = document.getElementById("root");
 const store = configureStore();
+console.log("baseurl",BASE_URL);
 if (localStorage.auth_token) {
   setAuthToken(localStorage.auth_token);
   const decoded = jwt_decode(localStorage.auth_token);
