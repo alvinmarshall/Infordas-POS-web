@@ -14,7 +14,7 @@ import {
 import { BASE_URL } from "./app/common/constants/Constants";
 const rootEl = document.getElementById("root");
 const store = configureStore();
-console.log("baseurl",BASE_URL);
+console.log("env",process.env.NODE_ENV);
 if (localStorage.auth_token) {
   setAuthToken(localStorage.auth_token);
   const decoded = jwt_decode(localStorage.auth_token);
