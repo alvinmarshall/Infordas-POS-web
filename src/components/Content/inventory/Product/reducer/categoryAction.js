@@ -7,9 +7,6 @@ import {
 } from "./categoryConstansts";
 import { errorHandlingAction } from "../../../../error/reducer/errorAction";
 
-const options = {
-  headers: { Authorization: `Bearer ${localStorage.auth_token}` }
-};
 
 //
 // ─── REMOVE CATEGORY ────────────────────────────────────────────────────────────
@@ -19,7 +16,7 @@ export const removeCategoryAction = payload => dispatch => {
   //todo
   setLoading(dispatch, true);
   axios
-    .delete(`/product/category/${payload}`, options)
+    .delete(`/product/category/${payload}`)
     .then()
     .catch(err => {
       errorHandlingAction(err, dispatch);
@@ -34,7 +31,7 @@ export const updateCategoryAction = payload => dispatch => {
   //todo
   setLoading(dispatch, true);
   axios
-    .put("/product/update-category", payload, options)
+    .put("/product/update-category", payload)
     .then(res => {
       dispatch({
         type: UPDATE_PRODUCT_CATEGORY,
@@ -51,7 +48,7 @@ export const createCategoryAction = payload => dispatch => {
   //todo
   setLoading(dispatch, true);
   axios
-    .post("/product/create-category", payload, options)
+    .post("/product/create-category", payload)
     .then(res => {
       dispatch({
         type: CREATE_PRODUCT_CATEGORY,
@@ -71,7 +68,7 @@ export const createCategoryAction = payload => dispatch => {
 export const fetchAllCategoryAction = () => dispatch => {
   setLoading(dispatch, true);
   axios
-    .get("/product/categories", options)
+    .get("/product/categories")
     .then(res => {
       dispatch({ type: GET_ALL_PRODUCT_CATEGORY, payload: res.data.data });
     })

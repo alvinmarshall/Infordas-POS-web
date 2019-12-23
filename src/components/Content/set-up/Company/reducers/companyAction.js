@@ -9,10 +9,6 @@ import {
 } from "./companyConstants";
 import { errorHandlingAction } from "../../../../error/reducer/errorAction";
 
-const options = {
-  headers: { Authorization: `Bearer ${localStorage.auth_token}` }
-};
-
 //#region Get all companies
 //
 // ─── GET ALL COMPANIES ──────────────────────────────────────────────────────────
@@ -21,7 +17,7 @@ const options = {
 export const fetchAllCompanies = () => dispatch => {
   showLoading(true, dispatch);
   axios
-    .get("/company/companies", options)
+    .get("/company/companies")
     .then(res => {
       dispatch({
         type: GET_ALL_COMPANIES,
@@ -44,7 +40,7 @@ export const fetchAllCompanies = () => dispatch => {
 export const createNewCompany = payload => dispatch => {
   showLoading(true, dispatch);
   axios
-    .post("/company/create-company", payload, options)
+    .post("/company/create-company", payload)
     .then(res => {
       dispatch({
         type: CREATE_COMPANY,
@@ -63,7 +59,7 @@ export const createNewCompany = payload => dispatch => {
 export const removeCompany = payload => dispatch => {
   showLoading(true, dispatch);
   axios
-    .delete(`/company/delete-company/${payload}`, options)
+    .delete(`/company/delete-company/${payload}`)
     .then(res => {
       dispatch({
         type: REMOVE_COMPANY,
@@ -86,7 +82,7 @@ export const removeCompany = payload => dispatch => {
 export const updateCompany = payload => dispatch => {
   showLoading(true, dispatch);
   axios
-    .put("/company/update-company", payload, options)
+    .put("/company/update-company", payload)
     .then(res => {
       dispatch({
         type: UPDATE_COMPANY,

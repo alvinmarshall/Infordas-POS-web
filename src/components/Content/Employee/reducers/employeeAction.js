@@ -21,14 +21,11 @@ import {
   UPDATE_EMPLOYEE
 } from "./employeeConstants";
 import { errorHandlingAction } from "../../../error/reducer/errorAction";
-const options = {
-  headers: { Authorization: `Bearer ${localStorage.auth_token}` }
-};
 
 export const createEmployeeAction = payload => dispatch => {
   showEmployeeLoading(true, dispatch);
   axios
-    .post("/employee/create-new", payload, options)
+    .post("/employee/create-new", payload)
     .then(res => {
       dispatch({
         type: CREATE_EMPLOYEE,
@@ -44,7 +41,7 @@ export const createEmployeeAction = payload => dispatch => {
 export const getEmployeesProfileAction = () => dispatch => {
   showEmployeeLoading(true, dispatch);
   axios
-    .get("/employee/infos", options)
+    .get("/employee/infos")
     .then(res => {
       dispatch({
         type: GET_ALL_EMPLOYEES,
@@ -60,7 +57,7 @@ export const getEmployeesProfileAction = () => dispatch => {
 export const updateEmployeeProfileAction = payload => dispatch => {
   showEmployeeLoading(true, dispatch);
   axios
-    .put("/employee/update-employee", payload,options)
+    .put("/employee/update-employee", payload)
     .then(res => {
       dispatch({ type: UPDATE_EMPLOYEE, payload: res.data.data.message });
     })

@@ -25,17 +25,13 @@ import { GET_ALL_PRODUCT_BRAND } from "./brandConstants";
 import { GET_ALL_PRODUCT_CATEGORY } from "./categoryConstansts";
 import { errorHandlingAction } from "../../../../error/reducer/errorAction";
 
-const options = {
-  headers: { Authorization: `Bearer ${localStorage.auth_token}` }
-};
-
 //
 // ─── CREATE PRODUCT ─────────────────────────────────────────────────────────────
 //
 export const createProductAction = payload => dispatch => {
   showLoading(true, dispatch);
   axios
-    .post("/product/create-product", payload, options)
+    .post("/product/create-product", payload)
     .then(res => {
       dispatch({ type: CREATE_PRODUCT, payload: res.data.data.message });
     })
@@ -51,7 +47,7 @@ export const createProductAction = payload => dispatch => {
 export const fetchAllProductAction = (start, end) => dispatch => {
   showLoading(true, dispatch);
   axios
-    .get(`/product/products?page=${start || 1}&limit=${end || 5}`, options)
+    .get(`/product/products?page=${start || 1}&limit=${end || 5}`)
     .then(res => {
       dispatch({ type: GET_ALL_PRODUCT, payload: res.data.result });
     })
@@ -68,7 +64,7 @@ export const fetchAllProductAction = (start, end) => dispatch => {
 export const updateProductAction = payload => dispatch => {
   showLoading(true, dispatch);
   axios
-    .put("/product/update-product", payload, options)
+    .put("/product/update-product", payload)
     .then(res => {
       dispatch({ type: UPDATE_PRODUCT, payload: res.data.data.message });
     })
@@ -85,7 +81,7 @@ export const updateProductAction = payload => dispatch => {
 export const deleteProductAction = payload => dispatch => {
   showLoading(true, dispatch);
   axios
-    .delete(`/product/product/${payload}`, options)
+    .delete(`/product/product/${payload}`)
     .then(res => {
       dispatch({ type: DELETE_PRODUCT, payload: res.data.data.message });
     })
@@ -110,10 +106,7 @@ const showLoading = (show, dispatch) => {
 
 export const fetchSelectionInput = () => dispatch => {
   showLoading(true, dispatch);
-  Promise.all([
-    axios.get("/product/brands", options),
-    axios.get("/product/categories", options)
-  ])
+  Promise.all([axios.get("/product/brands"), axios.get("/product/categories")])
     .then(([brand, category]) => {
       dispatch({ type: GET_ALL_PRODUCT_BRAND, payload: brand.data.data });
       dispatch({ type: GET_ALL_PRODUCT_CATEGORY, payload: category.data.data });

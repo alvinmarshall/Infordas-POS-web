@@ -22,11 +22,7 @@ import {
   RESET_RANK_MESSAGE
 } from "./rankConstants";
 import { errorHandlingAction } from "../../../../error/reducer/errorAction";
-const options = {
-  headers: {
-    Authorization: `Bearer ${localStorage.auth_token}`
-  }
-};
+
 //
 // ─── GET ALL RANKS ──────────────────────────────────────────────────────────────
 //
@@ -34,7 +30,7 @@ const options = {
 export const getRanksAction = () => dispatch => {
   showLoading(true, dispatch);
   axios
-    .get("/rank", options)
+    .get("/rank")
     .then(res => {
       dispatch({ type: GET_ALL_RANKS, payload: res.data.data });
     })
@@ -51,7 +47,7 @@ export const getRanksAction = () => dispatch => {
 export const createRankAction = payload => dispatch => {
   showLoading(true, dispatch);
   axios
-    .post("/rank/create-rank", payload, options)
+    .post("/rank/create-rank", payload)
     .then(res => {
       dispatch({ type: CREATE_RANK, payload: res.data.data.message });
     })
@@ -68,7 +64,7 @@ export const createRankAction = payload => dispatch => {
 export const updateRankAction = payload => dispatch => {
   showLoading(true, dispatch);
   axios
-    .put("/rank/update-rank", payload, options)
+    .put("/rank/update-rank", payload)
     .then(res => {
       dispatch({ type: UPDATE_RANK, payload: res.data.data.message });
     })
@@ -85,7 +81,7 @@ export const updateRankAction = payload => dispatch => {
 export const deleteRankAction = payload => dispatch => {
   showLoading(true, dispatch);
   axios
-    .delete(`/rank/delete-rank/${payload}`, options)
+    .delete(`/rank/delete-rank/${payload}`)
     .then(res => {
       dispatch({ type: DELETE_RANK, payload: res.data.data.message });
     })

@@ -3,10 +3,11 @@ import jwt_decode from "jwt-decode";
 import { SET_CURRENT_USER } from "./authConstants";
 import { GET_ERRORS } from "../../error/reducer/errorConstants";
 import setAuthToken from "../Login/setAuthToken";
+import { BASE_URL } from "../../../app/common/constants/Constants";
 
 export const loginUser = payload => dispatch => {
   axios
-    .post("/users/login", payload)
+    .post(`${BASE_URL}/users/login`, payload)
     .then(res => {
       const { token } = res.data.data;
       console.log(res.data);
@@ -34,5 +35,5 @@ export const logoutUser = () => dispatch => {
   localStorage.removeItem("auth_token");
   setAuthToken(false);
   dispatch(setCurrentUser({}));
-  alert("Session expired")
+  alert("Session expired");
 };

@@ -6,14 +6,10 @@ import {
 } from "./purchaseConstants";
 import { errorHandlingAction } from "../../../../error/reducer/errorAction";
 
-const options = {
-  headers: { Authorization: `Bearer ${localStorage.auth_token}` }
-};
-
 export const createNewPurchaseAction = payload => dispatch => {
   showLoading(true, dispatch);
   axios
-    .post("/product/purchase/create-purchase", payload, options)
+    .post("/product/purchase/create-purchase", payload)
     .then(res => {
       dispatch({ type: CREATE_NEW_PURCHASE, payload: res.data.data.message });
     })

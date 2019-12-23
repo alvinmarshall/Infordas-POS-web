@@ -22,9 +22,6 @@ import {
   PRODUCT_BRAND_LOADING
 } from "./brandConstants";
 import { errorHandlingAction } from "../../../../error/reducer/errorAction";
-const options = {
-  headers: { Authorization: `Bearer ${localStorage.auth_token}` }
-};
 
 //
 // ─── GET ALL BRANDS ─────────────────────────────────────────────────────────────
@@ -33,7 +30,7 @@ const options = {
 export const fetchAllBrandsAction = () => dispatch => {
   setLoading(dispatch, true);
   axios
-    .get("/product/brands", options)
+    .get("/product/brands")
     .then(res => {
       dispatch({ type: GET_ALL_PRODUCT_BRAND, payload: res.data.data });
     })
@@ -50,7 +47,7 @@ export const fetchAllBrandsAction = () => dispatch => {
 export const createBrandAction = payload => dispatch => {
   setLoading(dispatch, true);
   axios
-    .post("/product/create-brand", payload, options)
+    .post("/product/create-brand", payload)
     .then(res => {
       dispatch({ type: CREATE_PRODUCT_BRAND, payload: res.data.data.message });
     })
@@ -67,7 +64,7 @@ export const createBrandAction = payload => dispatch => {
 export const updateBrandAction = payload => dispatch => {
   setLoading(dispatch, true);
   axios
-    .put("/product/update-brand", payload, options)
+    .put("/product/update-brand", payload)
     .then(res => {
       dispatch({ type: UPDATE_PRODUCT_BRAND, payload: res.data.data.message });
     })
@@ -83,7 +80,7 @@ export const updateBrandAction = payload => dispatch => {
 export const removeBrandAction = payload => dispatch => {
   setLoading(dispatch, true);
   axios
-    .delete("/product/remove-brand", payload, options)
+    .delete("/product/remove-brand", payload)
     .then(res => {
       dispatch({ type: REMOVE_PRODUCT_BRAND, payload: res.data.data.message });
     })
