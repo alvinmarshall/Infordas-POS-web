@@ -1,5 +1,4 @@
 {
-  "homepage": "https://bik-krlvn.github.io/Infordas-POS-web",
   "name": "infordas-pos",
   "version": "0.1.0",
   "private": true,
@@ -25,7 +24,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://localhost:9000",
+  "proxy": "https://protected-reef-45264.herokuapp.com",
   "eslintConfig": {
     "extends": "react-app"
   },
