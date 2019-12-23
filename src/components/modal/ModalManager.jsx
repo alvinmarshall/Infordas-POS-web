@@ -9,6 +9,7 @@ import ProductCategoryModal from "./product/ProductCategoryModal";
 import ProductBrandModal from "./product/ProductBrandModal";
 import AlertModal from "./alert/AlertModal";
 import PurchaseProductModal from "./product/PurchaseProductModal";
+import CrmModal from "./crm/CrmModal";
 const ModalManager = ({ currentModal }) => {
   let renderedModal;
   if (currentModal) {
@@ -28,7 +29,8 @@ const modalLookUps = {
   ProductCategoryModal,
   ProductBrandModal,
   AlertModal,
-  PurchaseProductModal
+  PurchaseProductModal,
+  CrmModal
 };
 
 const mapState = state => ({

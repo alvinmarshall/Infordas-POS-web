@@ -24,6 +24,7 @@ import rankReducer from "../../components/Content/set-up/Rank/reducers/rankReduc
 import accountReducer from "../../components/Content/account/reducer/accountReducer";
 import productReducer from "../../components/Content/inventory/Product/reducer/productReducer";
 import purchaseReducer from "../../components/Content/inventory/Purchase/reducer/purchaseReducer";
+import crmReducer from "../../components/Content/CRM/reducer/crmReducer";
 
 export default combineReducers({
   auth: authReducer,
@@ -36,5 +37,6 @@ export default combineReducers({
   rank: rankReducer,
   account: accountReducer,
   product: productReducer,
-  inventory: purchaseReducer
+  inventory: purchaseReducer,
+  crm:crmReducer
 });

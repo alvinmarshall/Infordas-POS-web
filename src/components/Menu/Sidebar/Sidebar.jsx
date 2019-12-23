@@ -203,22 +203,22 @@ const Sidebar = ({ user, logoutUser }) => {
                 <a href="fake_url" className="nav-link">
                   <i className="nav-icon fas fa-users" />
                   <p>
-                    Customers
+                    CRM
                     <i className="fas fa-angle-left right" />
                   </p>
                 </a>
                 <ul className="nav nav-treeview">
                   <li className="nav-item">
-                    <a href="#d" className="nav-link">
+                    <NavLink to="/crm-Client" className="nav-link">
                       <i className="far fa-circle nav-icon" />
-                      <p>Profiles</p>
-                    </a>
+                      <p>Client</p>
+                    </NavLink>
                   </li>
                   <li className="nav-item">
-                    <a href="#d" className="nav-link">
-                      <i className="far fa-circle nav-icon text-danger" />
-                      <p>Debtors</p>
-                    </a>
+                    <NavLink to="crm-Supplier" className="nav-link">
+                      <i className="far fa-circle nav-icon" />
+                      <p>Supplier</p>
+                    </NavLink>
                   </li>
                 </ul>
               </li>
