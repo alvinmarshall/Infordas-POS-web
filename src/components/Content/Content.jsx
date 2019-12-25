@@ -24,8 +24,8 @@ import Product from "./inventory/Product/Product";
 import ProductBrand from "./inventory/Product/brand/ProductBrand";
 import ProductCategory from "./inventory/Product/category/ProductCategory";
 import PurchaseProduct from "./inventory/Purchase/PurchaseProduct";
-import CrmClient from "./CRM/CrmClient";
 import CrmSupplier from "./CRM/CrmSupplier";
+import CrmCustomer from "./CRM/CrmCustomer";
 
 export default class Content extends Component {
   render() {
@@ -41,7 +41,7 @@ export default class Content extends Component {
           <PrivateRoute path="/product-category" component={ProductCategory} />
           <PrivateRoute path="/product-brand" component={ProductBrand} />
           <PrivateRoute path="/purchase-product" component={PurchaseProduct} />
-          <PrivateRoute path="/crm-Client" component={CrmClient} />
+          <PrivateRoute path="/crm-Client" component={CrmCustomer} />
           <PrivateRoute path="/crm-Supplier" component={CrmSupplier} />
 
         </Switch>

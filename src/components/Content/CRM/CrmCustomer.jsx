@@ -17,10 +17,11 @@ import CrmTable from "./CrmTable";
 import { connect } from "react-redux";
 import { openModal } from "../../modal/modalAction";
 import { CRM_MODAL } from "./reducer/crmConstant";
+import { CRM_TYPE } from "../../../app/common/constants/Constants";
 
-class CrmClient extends Component {
+class CrmCustomer extends Component {
   render() {
-    const {openModal} = this.props;
+    const { openModal } = this.props;
     return (
       <div>
         <div className="row">
@@ -35,7 +36,14 @@ class CrmClient extends Component {
                     style={{ width: 150 }}
                   >
                     <div className="input-group-append">
-                      <button className="btn btn-default" onClick={() => openModal(CRM_MODAL)}>
+                      <button
+                        className="btn btn-default"
+                        onClick={() =>
+                          openModal(CRM_MODAL, {
+                            data: { crmType: CRM_TYPE.customer }
+                          })
+                        }
+                      >
                         <i className="fas fa-plus" /> Add Client
                       </button>
                     </div>
@@ -58,4 +66,4 @@ class CrmClient extends Component {
 const mapDispatchToProps = {
   openModal
 };
-export default connect(null, mapDispatchToProps)(CrmClient);
+export default connect(null, mapDispatchToProps)(CrmCustomer);

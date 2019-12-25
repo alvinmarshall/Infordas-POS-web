@@ -12,10 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-export const CREATE_NEW_CRM = "CREATE_NEW_CRM";
+export const CREATE_NEW_CUSTOMER = "CREATE_NEW_CRM";
+export const CREATE_NEW_SUPPLIER = "CREATE_NEW_CRM";
 export const CRM_IS_LOADING = "CRM_IS_LOADING";
 export const CRM_MODAL = "CrmModal";
 export const UPDATE_CRM = "UPDATE_CRM";
 export const DELETE_CRM = "DELETE_CRM";
 export const RESET_CRM_MESSAGE = "RESET_CRM_MESSAGE";
-export const GET_ALL_CRM = "GET_ALL_CRM";
+export const GET_ALL_CRM_CUSTOMER = "GET_ALL_CRM_CUSTOMER";
+export const GET_ALL_CRM_SUPPLIER = "GET_ALL_CRM_SUPPLIER";

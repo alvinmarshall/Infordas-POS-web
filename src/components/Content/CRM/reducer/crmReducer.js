@@ -13,12 +13,20 @@
 // limitations under the License.
 
 import createReducer from "../../../../app/common/util/reducerUtil";
-import { CREATE_NEW_CRM, CRM_IS_LOADING, GET_ALL_CRM } from "./crmConstant";
+import {
+  CRM_IS_LOADING,
+  GET_ALL_CRM,
+  CREATE_NEW_CUSTOMER,
+  CREATE_NEW_SUPPLIER,
+  GET_ALL_CRM_CUSTOMER,
+  GET_ALL_CRM_SUPPLIER
+} from "./crmConstant";
 
 const initialState = {
   loading: false,
   message: "",
-  crmData: []
+  crmCustomer: [],
+  crmSupplier: []
 };
 
 export const createCrm = (state, payload) => {
@@ -29,12 +37,18 @@ export const isLoading = (state, payload) => {
   return { ...state, loading: payload || false };
 };
 
-export const fetchAllCrm = (state, payload) => {
-  return { ...state, crmData: payload, loading: false };
+export const fetchAllCustomer = (state, payload) => {
+  return { ...state, crmCustomer: payload, loading: false };
+};
+
+export const fetchAllSupplier = (state, payload) => {
+  return { ...state, crmSupplier: payload, loading: false };
 };
 
 export default createReducer(initialState, {
-  [CREATE_NEW_CRM]: createCrm,
+  [CREATE_NEW_CUSTOMER]: createCrm,
+  [CREATE_NEW_SUPPLIER]: createCrm,
   [CRM_IS_LOADING]: isLoading,
-  [GET_ALL_CRM]: fetchAllCrm
+  [GET_ALL_CRM_CUSTOMER]: fetchAllCustomer,
+  [GET_ALL_CRM_SUPPLIER]: fetchAllSupplier
 });

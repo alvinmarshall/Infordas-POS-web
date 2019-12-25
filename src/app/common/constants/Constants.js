@@ -34,3 +34,4 @@ export const BASE_URL = "http://localhost:3001";
 export const downloadUrl = `${BASE_URL}/files/download?url`;
 
 export const ALERT_MODAL = "AlertModal";
+export const CRM_TYPE = { customer: "customer", supplier: "supplier" };

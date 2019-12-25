@@ -18,8 +18,8 @@ import { connect } from "react-redux";
 import { reduxForm, Field } from "redux-form";
 import TextInputWithIcon from "../../../app/common/forms/TextInputWithIcon";
 import { combineValidators, isRequired } from "revalidate";
-import { createCrmAction } from "./reducer/crmAction";
 import PropTypes from "prop-types";
+import { createCrmAction } from "./reducer/crmAction";
 
 const validate = combineValidators({
   name: isRequired({ message: "full name is required" }),
@@ -28,6 +28,8 @@ const validate = combineValidators({
 class CrmForm extends Component {
   onFormSubmit = payload => {
     console.log("pay", payload);
+    const { crmType } = this.props.currentCrm;
+
   };
   render() {
     const { toggle, submitting, pristine, handleSubmit } = this.props;

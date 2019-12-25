@@ -13,16 +13,31 @@
 // limitations under the License.
 
 import axios from "axios";
-import { CRM_IS_LOADING, CREATE_NEW_CRM, GET_ALL_CRM } from "./crmConstant";
+import {
+  CRM_IS_LOADING,
+  CREATE_NEW_CUSTOMER,
+  CREATE_NEW_SUPPLIER,
+  GET_ALL_CRM_CUSTOMER,
+  GET_ALL_CRM_SUPPLIER
+} from "./crmConstant";
 import showLoadingAction from "../../../../app/common/util/showLoadingUtil";
 import { errorHandlingAction } from "../../../error/reducer/errorAction";
+import { CRM_TYPE } from "../../../../app/common/constants/Constants";
 
-export const createCrmAction = payload => dispatch => {
+export const createCrmAction = (payload, crmType) => dispatch => {
+  if (crmType === CRM_TYPE.customer) {
+    createCrmCustomerAction(payload, dispatch);
+    return;
+  }
+  createCrmSupplierAction(payload, dispatch);
+};
+
+const createCrmCustomerAction = (payload, dispatch) => {
   showLoadingAction(CRM_IS_LOADING, true, dispatch);
   axios
-    .post("crm/create", payload)
+    .post("crm/create-customer", payload)
     .then(res => {
-      dispatch({ type: CREATE_NEW_CRM, payload: res.data.data.message });
+      dispatch({ type: CREATE_NEW_CUSTOMER, payload: res.data.data.message });
     })
     .catch(err => {
       showLoadingAction(CRM_IS_LOADING, false, dispatch);
@@ -30,12 +45,25 @@ export const createCrmAction = payload => dispatch => {
     });
 };
 
-export const fetchAllCrmClientAction = () => dispatch => {
+const createCrmSupplierAction = (payload, dispatch) => {
   showLoadingAction(CRM_IS_LOADING, true, dispatch);
   axios
-    .get("crm/client")
+    .post("crm/create-supplier", payload)
     .then(res => {
-      dispatch({ type: GET_ALL_CRM, payload: res.data.data });
+      dispatch({ type: CREATE_NEW_SUPPLIER, payload: res.data.data.message });
+    })
+    .catch(err => {
+      showLoadingAction(CRM_IS_LOADING, false, dispatch);
+      errorHandlingAction(err, dispatch);
+    });
+};
+
+export const fetchAllCrmCustomerAction = () => dispatch => {
+  showLoadingAction(CRM_IS_LOADING, true, dispatch);
+  axios
+    .get("crm/customers")
+    .then(res => {
+      dispatch({ type: GET_ALL_CRM_CUSTOMER, payload: res.data.data });
     })
     .catch(err => {
       showLoadingAction(CRM_IS_LOADING, false, dispatch);
@@ -44,15 +72,14 @@ export const fetchAllCrmClientAction = () => dispatch => {
 };
 
 export const fetchAllCrmSupplierAction = () => dispatch => {
-    showLoadingAction(CRM_IS_LOADING, true, dispatch);
-    axios
-      .get("crm/supplier")
-      .then(res => {
-        dispatch({ type: GET_ALL_CRM, payload: res.data.data });
-      })
-      .catch(err => {
-        showLoadingAction(CRM_IS_LOADING, false, dispatch);
-        errorHandlingAction(err, dispatch);
-      });
-  };
-  
+  showLoadingAction(CRM_IS_LOADING, true, dispatch);
+  axios
+    .get("crm/suppliers")
+    .then(res => {
+      dispatch({ type: GET_ALL_CRM_SUPPLIER, payload: res.data.data });
+    })
+    .catch(err => {
+      showLoadingAction(CRM_IS_LOADING, false, dispatch);
+      errorHandlingAction(err, dispatch);
+    });
+};

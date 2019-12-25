@@ -17,6 +17,7 @@ import CrmTable from "./CrmTable";
 import { connect } from "react-redux";
 import { openModal } from "../../modal/modalAction";
 import { CRM_MODAL } from "./reducer/crmConstant";
+import { CRM_TYPE } from "../../../app/common/constants/Constants";
 class CrmSupplier extends Component {
   render() {
     const { openModal } = this.props;
@@ -36,7 +37,11 @@ class CrmSupplier extends Component {
                     <div className="input-group-append">
                       <button
                         className="btn btn-default"
-                        onClick={() => openModal(CRM_MODAL)}
+                        onClick={() =>
+                          openModal(CRM_MODAL, {
+                            data: { crmType: CRM_TYPE.supplier }
+                          })
+                        }
                       >
                         <i className="fas fa-plus" /> Add Supplier
                       </button>
