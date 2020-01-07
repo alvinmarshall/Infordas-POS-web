@@ -5,9 +5,10 @@ import { Form } from "reactstrap";
 import TextInputWithIcon from "../../../app/common/forms/TextInputWithIcon";
 import { loginUser } from "../reducers/authAction";
 import PropTypes from "prop-types";
+import SpinnerView from "../../spinner/SpinnerView";
 class LoginForm extends Component {
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    if (nextProps.auth.isAuthenticated) {
+  componentWillUpdate(prevProps) {
+    if (this.props.auth.isAuthenticated !== prevProps.auth.isAuthenticated) {
       window.location.href = "/dashboard";
     }
   }
@@ -17,6 +18,8 @@ class LoginForm extends Component {
   };
   render() {
     const { handleSubmit } = this.props; // handleSubmit -- from redux-form
+    const { loading } = this.props.auth;
+
     return (
       <div className="login-page bg-dark">
         <div className="login-box">
@@ -51,7 +54,19 @@ class LoginForm extends Component {
                 <p className="mb-2 text-center">
                   <a href="#f">I forgot my password</a>
                 </p>
-                <input type="submit" className="btn btn-block btn-primary" />
+                <div className="form-group">
+                  {(loading && (
+                    <span className="text-center">
+                      {" "}
+                      <SpinnerView size="sm" type="border" />
+                    </span>
+                  )) || (
+                    <input
+                      type="submit"
+                      className="form-control btn btn-primary"
+                    />
+                  )}
+                </div>
               </Form>
             </div>
             {/* /.login-card-body */}
@@ -73,7 +88,6 @@ const mapState = state => ({
   auth: state.auth,
   errors: state.errors
 });
-
 
 export default connect(
   mapState,

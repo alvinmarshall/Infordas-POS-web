@@ -1,2 +1,3 @@
-export const SET_CURRENT_USER = 'SET_CURRENT_USER'
-export const SET_USER_INFO = 'SET_USER_INFO'
+export const SET_CURRENT_USER = "SET_CURRENT_USER";
+export const SET_USER_INFO = "SET_USER_INFO";
+export const LOGIN_LOADING = "LOGIN_LOADING";
