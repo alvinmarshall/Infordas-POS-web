@@ -15,7 +15,6 @@ export const loginUser = payload => dispatch => {
       const decoded = jwt_decode(token, {});
       setAuthToken(decoded);
       dispatch(setCurrentUser(decoded));
-      showLoading(false, dispatch);
     })
     .catch(err => {
       showLoading(false, dispatch);
