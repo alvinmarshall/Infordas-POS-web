@@ -6,8 +6,16 @@ import TextInputWithIcon from "../../../app/common/forms/TextInputWithIcon";
 import { loginUser } from "../reducers/authAction";
 import PropTypes from "prop-types";
 import SpinnerView from "../../spinner/SpinnerView";
+
 class LoginForm extends Component {
-  componentWillUpdate(prevProps) {
+  
+  componentDidMount() {
+    if (this.props.auth.isAuthenticated) {
+      window.location.href = "/dashboard";
+    }
+  }
+
+  componentDidUpdate(prevProps) {
     if (this.props.auth.isAuthenticated !== prevProps.auth.isAuthenticated) {
       window.location.href = "/dashboard";
     }
@@ -35,6 +43,7 @@ class LoginForm extends Component {
             <div className="card-body login-card-body">
               <p className="login-box-msg">Sign in to start your session</p>
               <Form onSubmit={handleSubmit(this.onFormSubmit)}>
+
                 <Field
                   type="text"
                   name="username"
