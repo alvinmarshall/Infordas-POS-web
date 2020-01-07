@@ -13,18 +13,33 @@
 // limitations under the License.
 
 import React from "react";
+import PropTypes from "prop-types";
 import { Spinner } from "reactstrap";
-const SpinnerView = ({ className }) => {
+const SpinnerView = ({ className, color, size, width, height, type }) => {
   return (
     <div className="mx-auto">
       <Spinner
         className={className}
-        color="dark"
-        type="grow"
-        style={{ width: "3rem", height: "3rem" }}
+        color={color}
+        size={size}
+        type={type}
+        style={{ width, height }}
       />
     </div>
   );
+};
+
+SpinnerView.propTypes = {
+  color: PropTypes.string,
+  size: PropTypes.string,
+  type: PropTypes.string
+};
+
+SpinnerView.defaultProps = {
+  color: "dark",
+  type: "grow", //or border
+  width: "3rem",
+  height: "3rem"
 };
 
 export default SpinnerView;
