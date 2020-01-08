@@ -148,10 +148,10 @@ const Sidebar = ({ user, logoutUser }) => {
                 </a>
                 <ul className="nav nav-treeview">
                   <li className="nav-item">
-                    <a href="#d" className="nav-link">
+                    <NavLink to="/new-invoice" className="nav-link">
                       <i className="far fa-circle nav-icon" />
-                      <p>Sale</p>
-                    </a>
+                      <p>New Invoice</p>
+                    </NavLink>
                   </li>
                   <li className="nav-item">
                     <a href="#d" className="nav-link">

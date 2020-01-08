@@ -17,11 +17,49 @@ import CrmTable from "./CrmTable";
 import { connect } from "react-redux";
 import { openModal } from "../../modal/modalAction";
 import { CRM_MODAL } from "./reducer/crmConstant";
-import { CRM_TYPE } from "../../../app/common/constants/Constants";
+import { CRM_TYPE, ALERT_MODAL } from "../../../app/common/constants/Constants";
+import {
+  fetchAllCrmCustomerAction,
+  resetCrmMessageAction,
+  deleteCrmAction
+} from "./reducer/crmAction";
+import SpinnerView from "../../spinner/SpinnerView";
 
 class CrmCustomer extends Component {
+  componentDidMount() {
+    this.props.fetchAllCrmCustomerAction();
+  }
+  componentDidUpdate(prevProps) {
+    if (this.props.crm.message !== prevProps.crm.message) {
+      if (this.props.crm.message) {
+        this.props.openModal(ALERT_MODAL, {
+          data: { message: this.props.crm.message }
+        });
+      }
+      this.props.resetCrmMessageAction();
+      this.props.fetchAllCrmCustomerAction();
+    }
+  }
+
+  handleCustomerDelete = payload => {
+    console.log("crd", payload);
+    // this.props.deleteCrmAction(payload);
+  };
   render() {
     const { openModal } = this.props;
+    const { crmCustomer, loading } = this.props.crm;
+    let crmContent;
+    if (loading) {
+      crmContent = <SpinnerView />;
+    } else {
+      crmContent = (
+        <CrmTable
+          data={crmCustomer}
+          crmType={CRM_TYPE.customer}
+          handleDelete={this.handleCustomerDelete}
+        />
+      );
+    }
     return (
       <div>
         <div className="row">
@@ -40,7 +78,9 @@ class CrmCustomer extends Component {
                         className="btn btn-default"
                         onClick={() =>
                           openModal(CRM_MODAL, {
-                            data: { crmType: CRM_TYPE.customer }
+                            data: {
+                              crmType: CRM_TYPE.customer
+                            }
                           })
                         }
                       >
@@ -51,7 +91,7 @@ class CrmCustomer extends Component {
                 </div>
               </div>
               {/* /.card-header */}
-              <CrmTable />
+              {crmContent}
               {/* /.card-body */}
             </div>
             {/* /.card */}
@@ -64,6 +104,12 @@ class CrmCustomer extends Component {
 }
 
 const mapDispatchToProps = {
-  openModal
+  openModal,
+  fetchAllCrmCustomerAction,
+  resetCrmMessageAction,
+  deleteCrmAction
 };
-export default connect(null, mapDispatchToProps)(CrmCustomer);
+const mapStateToProps = state => ({
+  crm: state.crm
+});
+export default connect(mapStateToProps, mapDispatchToProps)(CrmCustomer);

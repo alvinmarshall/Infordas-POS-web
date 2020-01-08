@@ -13,8 +13,17 @@
 // limitations under the License.
 
 import React from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { CRM_MODAL } from "./reducer/crmConstant";
+import { openModal } from "../../modal/modalAction";
 
-const CrmTable = () => {
+const CrmTable = ({ data, openModal, crmType, handleDelete }) => {
+  data &&
+    data.map(d => {
+      return (d.crmType = crmType);
+    });
+
   return (
     <table className="table table-striped">
       <thead>
@@ -22,14 +31,47 @@ const CrmTable = () => {
           <th>Name</th>
           <th>Contact</th>
           <th>Email</th>
-          <th>PrevDue</th>
           <th>Address</th>
+          <th>PrevDue</th>
           <th>Action</th>
         </tr>
       </thead>
-      <tbody></tbody>
+      <tbody>
+        {data &&
+          data.map((data, index) => (
+            <tr key={index}>
+              <td>{data.name}</td>
+              <td>{data.contact}</td>
+              <td>{data.email}</td>
+              <td>{data.address}</td>
+              <td>{data.prevDue}</td>
+              <td>
+                <div className="btn-group">
+                  <button
+                    className="btn btn-warning btn-sm"
+                    onClick={() => openModal(CRM_MODAL, { data })}
+                  >
+                    <i className="fa fa-edit"></i>
+                  </button>
+                  <button
+                    className="btn btn-danger btn-sm"
+                    onClick={() => handleDelete(data)}
+                  >
+                    <i className="fa fa-trash"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          ))}
+      </tbody>
     </table>
   );
 };
 
-export default CrmTable;
+CrmTable.propTypes = {
+  data: PropTypes.array.isRequired
+};
+const mapDispatchToProps = {
+  openModal
+};
+export default connect(null, mapDispatchToProps)(CrmTable);

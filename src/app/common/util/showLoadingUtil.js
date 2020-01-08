@@ -13,7 +13,7 @@
 // limitations under the License.
 
 const showLoadingAction = (type, show, dispatch) => {
-  dispatch({ type, show });
+  dispatch({ type, payload: show });
 };
 
 export default showLoadingAction;

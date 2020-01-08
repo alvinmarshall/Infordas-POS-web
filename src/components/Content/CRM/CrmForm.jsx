@@ -19,7 +19,7 @@ import { reduxForm, Field } from "redux-form";
 import TextInputWithIcon from "../../../app/common/forms/TextInputWithIcon";
 import { combineValidators, isRequired } from "revalidate";
 import PropTypes from "prop-types";
-import { createCrmAction } from "./reducer/crmAction";
+import { createCrmAction, updateCrmAction } from "./reducer/crmAction";
 
 const validate = combineValidators({
   name: isRequired({ message: "full name is required" }),
@@ -27,9 +27,12 @@ const validate = combineValidators({
 });
 class CrmForm extends Component {
   onFormSubmit = payload => {
+    this.props.toggle();
     console.log("pay", payload);
-    const { crmType } = this.props.currentCrm;
-
+    if (payload.uid) {
+      return this.props.updateCrmAction(payload);
+    }
+    this.props.createCrmAction(payload);
   };
   render() {
     const { toggle, submitting, pristine, handleSubmit } = this.props;
@@ -38,7 +41,7 @@ class CrmForm extends Component {
         <Form onSubmit={handleSubmit(this.onFormSubmit)}>
           <CardBody>
             <FormGroup className="row">
-              <Label className="col-sm-2">FullName</Label>
+              <Label className="col-sm-2">Name</Label>
               <div className="col-sm-10">
                 <Field
                   name="name"
@@ -78,7 +81,7 @@ class CrmForm extends Component {
               </div>
             </FormGroup>
             <FormGroup className="row">
-              <Label className="col-sm-2">Prevous Due</Label>
+              <Label className="col-sm-2">Prev Due</Label>
               <div className="col-sm-10">
                 <Field
                   name="previousDue"
@@ -119,7 +122,8 @@ CrmForm.propTypes = {
 };
 
 const mapDispatchToProps = {
-  createCrmAction
+  createCrmAction,
+  updateCrmAction
 };
 const mapStateToProps = (state, ownProps) => ({
   initialValues: ownProps.currentCrm

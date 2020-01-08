@@ -25,6 +25,7 @@ import accountReducer from "../../components/Content/account/reducer/accountRedu
 import productReducer from "../../components/Content/inventory/Product/reducer/productReducer";
 import purchaseReducer from "../../components/Content/inventory/Purchase/reducer/purchaseReducer";
 import crmReducer from "../../components/Content/CRM/reducer/crmReducer";
+import invoiceReducer from "../../components/Content/inventory/Invoice/reducer/invoiceReducer";
 
 export default combineReducers({
   auth: authReducer,
@@ -38,5 +39,6 @@ export default combineReducers({
   account: accountReducer,
   product: productReducer,
   inventory: purchaseReducer,
-  crm:crmReducer
+  crm:crmReducer,
+  cart:invoiceReducer
 });

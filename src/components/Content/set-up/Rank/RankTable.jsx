@@ -14,10 +14,9 @@
 
 import React from "react";
 import PropTypes from "prop-types";
-import { openModal } from "../../../modal/modalAction";
 import { RANK_MODAL } from "./reducers/rankConstants";
 
-const RankTable = ({ ranks,openModal }) => {
+const RankTable = ({ ranks, openModal }) => {
   return (
     <table className="table table-striped">
       <thead>
@@ -57,6 +56,9 @@ const RankTable = ({ ranks,openModal }) => {
   );
 };
 
-RankTable.propTypes = {};
+RankTable.propTypes = {
+  openModal: PropTypes.func,
+  ranks: PropTypes.array
+};
 
 export default RankTable;

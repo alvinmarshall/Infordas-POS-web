@@ -17,10 +17,46 @@ import CrmTable from "./CrmTable";
 import { connect } from "react-redux";
 import { openModal } from "../../modal/modalAction";
 import { CRM_MODAL } from "./reducer/crmConstant";
-import { CRM_TYPE } from "../../../app/common/constants/Constants";
+import { CRM_TYPE, ALERT_MODAL } from "../../../app/common/constants/Constants";
+import {
+  fetchAllCrmSupplierAction,
+  resetCrmMessageAction
+} from "./reducer/crmAction";
+import SpinnerView from "../../spinner/SpinnerView";
 class CrmSupplier extends Component {
+  componentDidMount() {
+    this.props.fetchAllCrmSupplierAction();
+  }
+  componentDidUpdate(prevProps) {
+    if (this.props.crm.message !== prevProps.crm.message) {
+      if (this.props.crm.message) {
+        this.props.openModal(ALERT_MODAL, {
+          data: { message: this.props.crm.message }
+        });
+      }
+      this.props.resetCrmMessageAction();
+      this.props.fetchAllCrmSupplierAction();
+    }
+  }
+
+  handleSupplierDelete = payload => {
+    console.log("srd", payload);
+  };
   render() {
     const { openModal } = this.props;
+    const { crmSupplier, loading } = this.props.crm;
+    let crmContent;
+    if (loading) {
+      crmContent = <SpinnerView />;
+    } else {
+      crmContent = (
+        <CrmTable
+          data={crmSupplier}
+          crmType={CRM_TYPE.supplier}
+          handleDelete={this.handleSupplierDelete}
+        />
+      );
+    }
     return (
       <div>
         <div className="row">
@@ -50,7 +86,7 @@ class CrmSupplier extends Component {
                 </div>
               </div>
               {/* /.card-header */}
-              <CrmTable />
+              {crmContent}
               {/* /.card-body */}
             </div>
             {/* /.card */}
@@ -63,6 +99,11 @@ class CrmSupplier extends Component {
 }
 
 const mapDispatchToProps = {
-  openModal
+  openModal,
+  fetchAllCrmSupplierAction,
+  resetCrmMessageAction
 };
-export default connect(null, mapDispatchToProps)(CrmSupplier);
+const mapStateToProps = state => ({
+  crm: state.crm
+});
+export default connect(mapStateToProps, mapDispatchToProps)(CrmSupplier);

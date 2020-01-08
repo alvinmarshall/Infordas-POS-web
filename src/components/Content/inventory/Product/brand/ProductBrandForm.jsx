@@ -88,6 +88,11 @@ const mapDispatchToProps = {
   updateBrandAction
 };
 
+ProductBrandForm.propTypes = {
+  createBrandAction: PropTypes.func,
+  updateBrandAction: PropTypes.func
+};
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps

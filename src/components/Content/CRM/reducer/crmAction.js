@@ -18,13 +18,20 @@ import {
   CREATE_NEW_CUSTOMER,
   CREATE_NEW_SUPPLIER,
   GET_ALL_CRM_CUSTOMER,
-  GET_ALL_CRM_SUPPLIER
+  GET_ALL_CRM_SUPPLIER,
+  RESET_CRM_MESSAGE,
+  UPDATE_CUSTOMER,
+  UPDATE_SUPPLIER,
+  DELETE_CUSTOMER,
+  DELETE_SUPPLIER
 } from "./crmConstant";
 import showLoadingAction from "../../../../app/common/util/showLoadingUtil";
 import { errorHandlingAction } from "../../../error/reducer/errorAction";
 import { CRM_TYPE } from "../../../../app/common/constants/Constants";
 
-export const createCrmAction = (payload, crmType) => dispatch => {
+export const createCrmAction = payload => dispatch => {
+  const { crmType } = payload;
+  if (crmType === undefined) throw new Error("crmType not specified");
   if (crmType === CRM_TYPE.customer) {
     createCrmCustomerAction(payload, dispatch);
     return;
@@ -82,4 +89,78 @@ export const fetchAllCrmSupplierAction = () => dispatch => {
       showLoadingAction(CRM_IS_LOADING, false, dispatch);
       errorHandlingAction(err, dispatch);
     });
+};
+
+export const updateCrmAction = payload => dispatch => {
+  const { crmType } = payload;
+  if (crmType === undefined) throw new Error("crmType not specified");
+  if (crmType === CRM_TYPE.customer) {
+    return updateCusomterAction(payload, dispatch);
+  }
+  updateSupplierAction(payload, dispatch);
+};
+
+export const updateCusomterAction = (payload, dispatch) => {
+  showLoadingAction(CRM_IS_LOADING, true, dispatch);
+  axios
+    .put("crm/update-customer", payload)
+    .then(res => {
+      dispatch({ type: UPDATE_CUSTOMER, payload: res.data.data.message });
+    })
+    .catch(err => {
+      showLoadingAction(CRM_IS_LOADING, false, dispatch);
+      errorHandlingAction(err, dispatch);
+    });
+};
+
+export const updateSupplierAction = (payload, dispatch) => {
+  showLoadingAction(CRM_IS_LOADING, true, dispatch);
+  axios
+    .put("crm/update-supplier", payload)
+    .then(res => {
+      dispatch({ type: UPDATE_SUPPLIER, payload: res.data.data.message });
+    })
+    .catch(err => {
+      showLoadingAction(CRM_IS_LOADING, false, dispatch);
+      errorHandlingAction(err, dispatch);
+    });
+};
+
+export const deleteCrmAction = payload => dispatch => {
+  const { crmType } = payload;
+  if (crmType === undefined) throw new Error("crmType not specified");
+  if (crmType === CRM_TYPE.customer) {
+    return deleteCustomerAction(payload);
+  }
+  deleteSupplierAction(payload);
+};
+
+export const deleteCustomerAction = (payload, dispatch) => {
+  showLoadingAction(CRM_IS_LOADING, true, dispatch);
+  axios
+    .put("crm/delete-customer", payload)
+    .then(res => {
+      dispatch({ type: DELETE_CUSTOMER, payload: res.data.data.message });
+    })
+    .catch(err => {
+      showLoadingAction(CRM_IS_LOADING, false, dispatch);
+      errorHandlingAction(err, dispatch);
+    });
+};
+
+export const deleteSupplierAction = (payload, dispatch) => {
+  showLoadingAction(CRM_IS_LOADING, true, dispatch);
+  axios
+    .put("crm/delete-supplier", payload)
+    .then(res => {
+      dispatch({ type: DELETE_SUPPLIER, payload: res.data.data.message });
+    })
+    .catch(err => {
+      showLoadingAction(CRM_IS_LOADING, false, dispatch);
+      errorHandlingAction(err, dispatch);
+    });
+};
+
+export const resetCrmMessageAction = () => dispatch => {
+  dispatch({ type: RESET_CRM_MESSAGE });
 };
