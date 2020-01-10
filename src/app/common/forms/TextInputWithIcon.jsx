@@ -8,22 +8,25 @@ const TextInputWithIcon = ({
   meta: { touched, error },
   icon,
   pattern,
+  className,
   readOnly
 }) => {
   return (
-    <div>
-      <div className="input-group mb-3" width={width}>
-        <div className="input-group-prepend">
-          <span className="input-group-text">
-            <i className={icon} />
-          </span>
-        </div>
+    <div style={{ width: `${width}%` }}>
+      <div className="input-group mb-3">
+        {icon && (
+          <div className="input-group-prepend">
+            <span className="input-group-text">
+              <i className={icon} />
+            </span>
+          </div>
+        )}
         <input
           {...input}
           type={type}
           readOnly={readOnly}
           pattern={pattern}
-          className="form-control"
+          className={`form-control ${className}`}
           placeholder={placeholder}
         />
       </div>
@@ -32,4 +35,8 @@ const TextInputWithIcon = ({
   );
 };
 
+TextInputWithIcon.defaultProps = {
+  width: 100,
+  type: "text"
+};
 export default TextInputWithIcon;
