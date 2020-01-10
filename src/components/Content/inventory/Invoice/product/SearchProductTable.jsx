@@ -3,17 +3,19 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { addItemToCartAction } from "../reducer/invoiceAction";
 
-const SearchProductTable = ({ data, addItemToCartAction }) => {
+const SearchProductTable = ({ data, addItemToCartAction, cartForm }) => {
+  const err = cartForm && cartForm.syncErrors;
+  let invalid = err ? true : false;
+
   return (
     <table className="table">
       <thead>
         <tr>
-          <th>Qty</th>
           <th>Name</th>
+          <th>Stock</th>
           <th>Category</th>
           <th>Brand</th>
           <th>Stock</th>
-          <th>Total</th>
           <th>Action</th>
         </tr>
       </thead>
@@ -22,13 +24,13 @@ const SearchProductTable = ({ data, addItemToCartAction }) => {
           data.map((item, index) => (
             <tr key={index}>
               <td>{item.name}</td>
-              <td>{item.qty}</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
+              <td>{item.stock}</td>
+              <td>{item.category}</td>
+              <td>{item.brand}</td>
+              <td>{item.stock}</td>
               <td>
                 <button
+                  disabled={invalid}
                   className="btn btn-outline-primary btn-sm"
                   onClick={() => {
                     addItemToCartAction(item);
@@ -51,4 +53,8 @@ const mapDispatchToProps = {
   addItemToCartAction
 };
 
-export default connect(null, mapDispatchToProps)(SearchProductTable);
+const mapStateToProps = state => ({
+  cartForm: state.form && state.form.cartForm
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchProductTable);

@@ -5,9 +5,36 @@ import CartTable from "./cart/CartTable";
 import SearchProductTable from "./product/SearchProductTable";
 
 const product = [
-  { uuid: "u1", name: "Product A", qty: "1" },
-  { uuid: "u2", name: "Product B", qty: "1" },
-  { uuid: "u3", name: "Product C", qty: "1" }
+  {
+    uuid: "u1",
+    name: "Product A",
+    category: "Category A",
+    brand: "Brand A",
+    qty: 0,
+    stock: "80",
+    retailPrice:"20",
+    total: 0
+  },
+  {
+    uuid: "u2",
+    name: "Product B",
+    category: "Category B",
+    brand: "Brand A",
+    qty: 0,
+    stock: "40",
+    retailPrice:"10",
+    total: 0
+  },
+  {
+    uuid: "u3",
+    name: "Product C",
+    category: "Category C",
+    brand: "Brand C",
+    qty: 0,
+    stock: "50",
+    retailPrice:"40",
+    total: 0
+  }
 ];
 export default class InvoiceSection extends Component {
   state = {
@@ -76,7 +103,7 @@ export default class InvoiceSection extends Component {
             {/* Table row */}
             <div className="row">
               <div className="col-12 table-responsive">
-                <CartTable  />
+                <CartTable />
               </div>
               {/* /.col */}
             </div>

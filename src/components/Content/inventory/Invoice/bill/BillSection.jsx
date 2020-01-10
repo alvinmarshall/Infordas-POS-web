@@ -1,25 +1,29 @@
 import React from "react";
+import { connect } from "react-redux";
 
-const BillSection = () => {
+const BillSection = ({ cart }) => {
+  const { item } = cart;
+  const total = item && item.reduce((acc, val) => acc + parseInt(val.total), 0);
+
   return (
     <div className="table-responsive">
       <table className="table">
         <tbody>
           <tr>
             <th style={{ width: "50%" }}>Subtotal:</th>
-            <td>$250.30</td>
+            <td>{`¢ ${total}`}</td>
           </tr>
           <tr>
-            <th>Tax (9.3%)</th>
-            <td>$10.34</td>
+            <th>Tax %</th>
+            <td>¢ 0</td>
           </tr>
           <tr>
-            <th>Shipping:</th>
-            <td>$5.80</td>
+            <th>Discount %</th>
+            <td>¢ 0</td>
           </tr>
           <tr>
-            <th>Total:</th>
-            <td>$265.24</td>
+            <th>Total</th>
+            <td>{`¢ ${total}`}</td>
           </tr>
         </tbody>
       </table>
@@ -27,4 +31,7 @@ const BillSection = () => {
   );
 };
 
-export default BillSection;
+const mapStateToProps = state => ({
+  cart: state.cart
+});
+export default connect(mapStateToProps, null)(BillSection);
