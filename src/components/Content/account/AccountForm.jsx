@@ -18,27 +18,14 @@ import { reduxForm, Field } from "redux-form";
 import { Form, FormGroup, ModalFooter } from "reactstrap";
 import TextInputWithIcon from "../../../app/common/forms/TextInputWithIcon";
 import SelectInput from "../../../app/common/forms/SelectInput";
-import {
-  combineValidators,
-  isRequired,
-  createValidator,
-  composeValidators
-} from "revalidate";
+import { combineValidators, isRequired, composeValidators } from "revalidate";
 import { getRanksAction } from "../set-up/Rank/reducers/rankAction";
 import {
   createUserAccountAction,
   resetAccountMessageAction
 } from "./reducer/accountAction";
 import SpinnerView from "../../spinner/SpinnerView";
-
-const isValidTel = createValidator(
-  message => value => {
-    if (value && !/^\(?[\d]{3}\)?[\s-]?[\d]{3}[\s-]?[\d]{4}$/i.test(value)) {
-      return message;
-    }
-  },
-  "Invalid tel number"
-);
+import { isValidTel } from "../../../app/common/util/custom-validate";
 
 const validate = combineValidators({
   fullName: isRequired({ message: "full name is required" }),

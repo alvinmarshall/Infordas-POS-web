@@ -35,3 +35,5 @@ export const downloadUrl = `${BASE_URL}/files/download?url`;
 
 export const ALERT_MODAL = "AlertModal";
 export const CRM_TYPE = { customer: "customer", supplier: "supplier" };
+
+export const APP_VERSION = "0.10";

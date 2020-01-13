@@ -45,8 +45,6 @@ export default class Content extends Component {
           <PrivateRoute path="/crm-Client" component={CrmCustomer} />
           <PrivateRoute path="/crm-Supplier" component={CrmSupplier} />
           <PrivateRoute path="/new-invoice" component={InvoiceSection} />
-
-
         </Switch>
       </section>
     );

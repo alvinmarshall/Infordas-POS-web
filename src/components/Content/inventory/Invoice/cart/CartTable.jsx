@@ -74,9 +74,9 @@ class CartTable extends Component {
       <table className="table table-striped">
         <thead>
           <tr>
-            <th>Qty</th>
             <th>Name</th>
             <th>Stock</th>
+            <th>Qty</th>
             <th>Price</th>
             <th>Total</th>
             <th>Action</th>
@@ -85,6 +85,8 @@ class CartTable extends Component {
         <tbody>
           {rows.map((item, index) => (
             <tr key={index}>
+              <td>{item.name}</td>
+              <td>{item.stock}</td>
               <td>
                 <Field
                   width="30"
@@ -95,8 +97,6 @@ class CartTable extends Component {
                   component={TextInputWithIcon}
                 />
               </td>
-              <td>{item.name}</td>
-              <td>{item.stock}</td>
               <td>{item.retailPrice}</td>
               <td>{item.total}</td>
               <td>

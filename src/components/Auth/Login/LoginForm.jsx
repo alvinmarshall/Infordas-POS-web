@@ -7,6 +7,7 @@ import { loginUser } from "../reducers/authAction";
 import PropTypes from "prop-types";
 import SpinnerView from "../../spinner/SpinnerView";
 import { combineValidators, isRequired } from "revalidate";
+import { getAdminStatusAction } from "../../quick-start/reducer/quickStartAction";
 
 const validate = combineValidators({
   username: isRequired({ message: "username not set" }),
@@ -21,6 +22,7 @@ class LoginForm extends Component {
     if (this.props.auth.isAuthenticated) {
       window.location.href = "/dashboard";
     }
+    this.props.getAdminStatusAction();
   }
 
   componentDidUpdate(prevProps) {
@@ -29,6 +31,11 @@ class LoginForm extends Component {
     }
     if (this.props.errors !== prevProps.errors) {
       this.setState({ errors: this.props.errors });
+    }
+    if (this.props.status !== prevProps.status) {
+      if (this.props.status === false) {
+        window.location.href = "/quick-start";
+      }
     }
   }
 
@@ -85,7 +92,9 @@ class LoginForm extends Component {
                       disabled={invalid}
                       type="submit"
                       className="form-control btn btn-secondary"
-                    >LOGIN</button>
+                    >
+                      LOGIN
+                    </button>
                   )}
                 </div>
               </Form>
@@ -108,12 +117,14 @@ LoginForm.propTypes = {
   error: PropTypes.object
 };
 const mapDispatchToProps = {
-  loginUser
+  loginUser,
+  getAdminStatusAction
 };
 
 const mapStateToProps = state => ({
   auth: state.auth,
-  errors: state.error
+  errors: state.error,
+  status: state.quickStart.status
 });
 
 export default connect(

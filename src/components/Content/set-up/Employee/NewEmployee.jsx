@@ -94,7 +94,7 @@ class NewEmployee extends Component {
     const { loading } = this.props.employee;
     return (
       <div>
-        <div className="col-md-9">
+        <div className="col-md-9 mx-auto">
           <Card className="card">
             <Form
               className="form-horizontal"

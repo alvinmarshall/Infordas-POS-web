@@ -1,0 +1,4 @@
+export const GET_QUICK_START_STATUS = "GET_QUICK_START_STATUS";
+export const QUICK_START_MODAL = "QuickStartModal";
+export const CREATE_NEW_ADMIN = "CREATE_NEW_ADMIN";
+export const QUICK_START_LOADING = "QUICK_START_LOADING";
